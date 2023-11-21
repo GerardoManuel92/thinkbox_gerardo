@@ -31,6 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url(); ?>Th/assets/style.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="<?php echo base_url(); ?>Th/assets/css/responsive.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>Th/assets/css/whatsapp.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>Th/assets/cards.css" rel="stylesheet" />
    
     <!-- ========== End Stylesheet ========== -->
 
