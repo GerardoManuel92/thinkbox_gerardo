@@ -436,7 +436,7 @@
     <div class="container">
         <div class="row" style="justify-content: center;">
             <div class="snip1214">
-                <div class="plan col-lg-8 offset-lg-2 featured">
+                <div class="plan col-lg-8 offset-lg-2">
                     <h3 class="plan-title">
                         4 menús
                     </h3>
@@ -490,14 +490,16 @@
                     </h3>
                     <!-- <div class="plan-cost"><span class="plan-price">$99</span><span class="plan-type">/ Monthly</span></div> -->
                     <ul class="plan-features">
-                        <li><i class="ion-checkmark"> </i>100GB Linux Web Space</li>
-                        <li><i class="ion-checkmark"> </i>Unlimited MySQL Databases</li>
-                        <li><i class="ion-checkmark"> </i>Unlimited Email</li>
-                        <li><i class="ion-checkmark"> </i>10000Gb Monthly Transfer</li>
-                        <li><i class="ion-checkmark"> </i>24/7 Tech Support</li>
-                        <li><i class="ion-checkmark"> </i>Daily Backups</li>
+                        <li><i class="ion-checkmark"> </i>Tu negocio en la nube</li>
+                        <li><i class="ion-checkmark"> </i>Baja inversión</li>
+                        <li><i class="ion-checkmark"> </i>Negocio escalable</li>
+                        <li><i class="ion-checkmark"> </i>Rápido accesso y creación</li>
+                        <li><i class="ion-checkmark"> </i>Sin límites territoriales</li>
+                        <li><i class="ion-checkmark"> </i>Siempre abierta</li>
                     </ul>
-                    <div class="plan-select"><a href="">Seleccionar</a></div>
+                    <br>
+                    <p style="font-size: 12px;">Si deseas obtener una cotización da clic en el botón de abajo y un asesor en línea te ayudará</p>
+                    <div class="plan-select"><a href=" https://wa.me/5564210883?text=Hola,%20quiero%20cotizar%20mi%20página%20web%20hoy%20mismo." target="_blank">Cotiza hoy mismo</a></div>
                 </div>
             </div>
         </div>
