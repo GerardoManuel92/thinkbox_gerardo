@@ -88,3 +88,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('ANOS','5');
 define('NUMERO_TEL','(55) 6421-0883');
 define('NUMERO_MARCAR','5564210883');
+
+define('IDUSERCOM','tiendainfouser');
+define('NOMBRECOM','tiendainfonombre');
+define('CARRITO','');

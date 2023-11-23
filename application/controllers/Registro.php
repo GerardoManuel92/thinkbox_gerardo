@@ -1,26 +1,27 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Registro extends CI_Controller {
+class Registro extends CI_Controller
+{
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/userguide3/general/urls.html
-	 */
+    /**
+     * Index Page for this controller.
+     *
+     * Maps to the following URL
+     * 		http://example.com/index.php/welcome
+     *	- or -
+     * 		http://example.com/index.php/welcome/index
+     *	- or -
+     * Since this controller is set as the default controller in
+     * config/routes.php, it's displayed at http://example.com/
+     *
+     * So any other public methods not prefixed with an underscore will
+     * map to /index.php/welcome/<method_name>
+     * @see https://codeigniter.com/userguide3/general/urls.html
+     */
 
 
-     public function __construct()
+    public function __construct()
 
     {
 
@@ -28,17 +29,19 @@ class Registro extends CI_Controller {
 
         parent::__construct();
 
+        $this->load->model('General_Model');
+
 
 
         function changeString($string)
 
         {
 
-         
+
 
             $string = trim($string);
 
-         
+
 
             $string = str_replace(
 
@@ -50,7 +53,7 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             $string = str_replace(
 
@@ -62,7 +65,7 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             $string = str_replace(
 
@@ -74,7 +77,7 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             $string = str_replace(
 
@@ -86,7 +89,7 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             $string = str_replace(
 
@@ -98,7 +101,7 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             $string = str_replace(
 
@@ -110,36 +113,63 @@ class Registro extends CI_Controller {
 
             );
 
-         
+
 
             //Esta parte se encarga de eliminar cualquier caracter extraño
 
             $string = str_replace(
 
-                array('º', '~','!','&','´',';','"',),
+                array('º', '~', '!', '&', '´', ';', '"',),
 
-                array('','','','&amp;','','','&quot;'),
+                array('', '', '', '&amp;', '', '', '&quot;'),
 
                 $string
 
             );
 
-         
 
-         
+
+
 
             return $string;
-
         }
-
-        
-
     }
 
-	public function index()
-	{
-		$this->load->view('menu/head-login');
-		$this->load->view('registro/body-registro');
-        $this->load->view('js/js-login');		
-	}
+    public function index()
+    {
+
+
+        $this->load->view('menu/head-login');
+        $this->load->view('registro/body-registro');
+        $this->load->view('js/js-registro');
+    }
+
+    public function registrarUsuario()
+    {
+
+        $this->load->model('General_Model');
+        $data_post = $this->input->post();
+        $condicion = array(
+            'correo' => trim($data_post["correo"]),
+            'usuario' => trim($data_post['usuario'])
+        );
+        $usuario_existente = $this->General_Model->SelectUnafila("*", "usuario", $condicion);
+        if ($usuario_existente != null) {
+            echo json_encode(array("error" => "El usuario ya existe"));
+        } else {
+            $table = 'usuario';
+            $data = array(
+                'nombre' => trim($data_post['nombrex']),
+                'apellido' => trim($data_post['apellidox']),
+                'empresa' => trim($data_post['empresax']),
+                'correo' => trim($data_post['correox']),
+                'usuario' => trim($data_post['usuariox']),
+                'contrasena' => openssl_encrypt($data_post['passwordx'], AES, KEY),
+                'telefono' => trim($data_post['telefonox']),
+                'estado' => trim("1"),
+            );
+            $this->General_Model->altaERP($data, $table);
+        }
+        echo json_encode(array("mensaje" => "Registro exitoso"));
+    }
 }

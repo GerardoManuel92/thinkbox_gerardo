@@ -36,7 +36,7 @@
                         <div class="mb-3">
                             <input type="password" class="form-control" id="password2" placeholder="Repetir password">
                         </div>
-                        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Entrar</button></div>
+                        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" onclick="registrarUsuario();">Registrar</button></div>
                         <div id="emailHelp" class="form-text text-center mb-5 text-white">¿Tienes una cuenta? <a href="<?php echo base_url();?>Login" class="text-white fw-bold"> Inicia sesión</a>
                         </div>
                     </form>
