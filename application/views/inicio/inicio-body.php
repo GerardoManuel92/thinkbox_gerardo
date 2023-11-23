@@ -440,7 +440,7 @@
                     <h3 class="plan-title">
                         4 menús
                     </h3>
-                    <div class="plan-cost"><span class="plan-price">$</span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price">$1000</span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -450,13 +450,13 @@
                         <li><i class="ion-checkmark"> </i>Seguridad en línea</li>
                         <li><i class="ion-checkmark"> </i>Adaptación a dispositivos móviles</li>
                     </ul>
-                    <div class="plan-select"><a href="">Seleccionar</a></div>
+                    <div class="plan-select"><a href="">Agregar al carrito</a></div>
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
                     <h3 class="plan-title">
                         5 menús
                     </h3>
-                    <div class="plan-cost"><span class="plan-price">$</span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price">$2000</span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
                     <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios, proyectos o galería y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -466,7 +466,7 @@
                         <li><i class="ion-checkmark"> </i>Seguridad en línea</li>
                         <li><i class="ion-checkmark"> </i>Adaptación a dispositivos móviles</li>
                     </ul>
-                    <div class="plan-select"><a href="">Seleccionar</a></div>
+                    <div class="plan-select"><a href="">Agregar al carrito</a></div>
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
                     <h3 class="plan-title">

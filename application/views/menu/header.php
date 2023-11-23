@@ -80,6 +80,9 @@
                                     <li><a href="<?php echo base_url();?>Faq/">Preguntas frecuentes</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a style="font-size: 16px;" href="<?php echo base_url();?>Login/">Iniciar sesión</a>
+                            </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
