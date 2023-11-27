@@ -26,7 +26,7 @@
 
 
 <script type="text/javascript">
-       
+            
        jQuery(document).ready(function($){
  
           $('#WABoton').floatingWhatsApp({
@@ -52,6 +52,12 @@
        });
  
 </script>
+<script type="text/javascript">
+    var base_urlx = "<?php echo base_url();?>";
+</script>
+<script src="<?php echo base_url();?>Th/JS/inicio/inicio.js"></script>
+<script src="<?php echo base_url();?>Th/JS/addtocart.js"></script>
+<script src="<?php echo base_url();?>Th/JS/login/login.js"></script>
 
 </body>
 </html>

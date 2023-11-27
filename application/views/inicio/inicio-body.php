@@ -437,10 +437,11 @@
         <div class="row" style="justify-content: center;">
             <div class="snip1214">
                 <div class="plan col-lg-8 offset-lg-2">
-                    <h3 class="plan-title">
-                        4 menús
+                    <p id="id1" hidden></p>
+                    <h3 class="plan-title" id="menus4">
+                        <!-- 4 menús -->
                     </h3>
-                    <div class="plan-cost"><span class="plan-price">$1000</span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price" id="precio1">$</span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -450,15 +451,18 @@
                         <li><i class="ion-checkmark"> </i>Seguridad en línea</li>
                         <li><i class="ion-checkmark"> </i>Adaptación a dispositivos móviles</li>
                     </ul>
-                    <div class="plan-select"><a href="">Agregar al carrito</a></div>
+                    <div class="plan-select"><!-- <a href=""></a> -->
+                        <button type="submit" class="btn btn-secondary" onclick="addcarritoServicio1();">Agregar al carrito</button>
+                    </div>
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
-                    <h3 class="plan-title">
-                        5 menús
+                    <p id="id2" hidden></p>
+                    <h3 class="plan-title" id="menus5">
+                        <!-- 5 menús -->
                     </h3>
-                    <div class="plan-cost"><span class="plan-price">$2000</span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price" id="precio2">$<!-- 2000 --></span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
-                    <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios, proyectos o galería y contacto)</li>
+                        <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios, proyectos o galería y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
                         <li><i class="ion-checkmark"> </i>Dominio y hosting web 24/7 en línea</li>
                         <li><i class="ion-checkmark"> </i>Conexión con tus redes sociales</li>
@@ -470,7 +474,7 @@
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
                     <h3 class="plan-title">
-                    Páginas a la medida
+                        Páginas a la medida
                     </h3>
                     <!-- <div class="plan-cost"><span class="plan-price">$49</span><span class="plan-type">/ Monthly</span></div> -->
                     <ul class="plan-features">
@@ -507,7 +511,7 @@
 
     <!-- Termina area de cards de precios -->
 
-    
+
 
     <!-- Inicia sección de testimonial 
     ============================================= -->

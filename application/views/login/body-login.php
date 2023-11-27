@@ -9,7 +9,7 @@
                     <div class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center">
-                            <img src="<?php echo base_url();?>Th/assets/img/logo.png" class="img-fluid profile-image-pic img-thumbnail" width="250px" alt="profile">
+                            <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>Th/assets/img/logo.png" class="img-fluid profile-image-pic img-thumbnail" width="250px" alt="profile"></a>
                         </div>
                         <br>
                         <div class="mb-3">

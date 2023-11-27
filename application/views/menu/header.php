@@ -13,10 +13,10 @@
                             <li class="contact">
                                 <i class="fas fa-phone" style="font-size: 20px; color:#eb8b00;"></i>
                                 <p>Hablar con un asesor <strong><a href="tel:<?php echo NUMERO_MARCAR; ?>" style="font-weight: bold; font-size:16px;"> <?php echo NUMERO_TEL; ?></a></strong></p>
-                            </li>
-                            <li class="contact">
-                                <a href="#"><i class="fas fa-shopping-cart" style="font-size: 18px; color:#eb8b00;"></i></a>
-                                <a style="font-size: 14px;" href="<?php echo base_url(); ?>Login">Iniciar sesión</a>                         
+                                <i class="fas fa-phone" style="font-size: 20px; color:#eb8b00;"></i>
+                                <p>Usuario <strong id="strong-user"><?php echo $this->session->userdata('NOMBRECOM'); ?></strong></p>
+                                <!-- <a href="<?php echo base_url(); ?>Login/"><i class="fa fa-user" aria-hidden="true" style="font-size: 18px; color:#eb8b00;"></i></a> -->
+                                <a href="<?php echo base_url(); ?>Carrito/"><i class="fas fa-shopping-cart" style="font-size: 18px; color:#eb8b00;"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -28,8 +28,8 @@
                             <i class="fa fa-bars"></i>
                         </button>
                         <a class="navbar-brand" href="<?php echo base_url(); ?>">
-                            <img src="<?php echo base_url(); ?>Th/assets/img/logo-light.png?v=<?php echo time(); ?>" class="logo logo-display" alt="Logo" style="height: 70px;">
-                            <img src="<?php echo base_url(); ?>Th/assets/img/logo.png?v=<?php echo time(); ?>" class="logo logo-scrolled" alt="Logo" style="height: 70px;">
+                            <img src="<?php echo base_url(); ?>Th/assets/img/logo-light.png?v=<?php echo time(); ?>" class="logo logo-display" alt="Logo" style="height: 60px;">
+                            <img src="<?php echo base_url(); ?>Th/assets/img/logo.png?v=<?php echo time(); ?>" class="logo logo-scrolled" alt="Logo" style="height: 60px;">
                         </a>
                     </div>
                     <!-- End Header Navigation -->
@@ -83,10 +83,10 @@
                                     <li><a href="<?php echo base_url(); ?>Contacto/">Contáctanos</a></li>
                                     <li><a href="<?php echo base_url(); ?>Faq/">Preguntas frecuentes</a></li>
                                 </ul>
+                            </li>                            
+                            <li>
+                                <a style="font-size: 12px;" href="<?php echo base_url(); ?>Login/">Iniciar sesión</a>
                             </li>
-                            <!-- <li>
-                                <a style="font-size: 16px;" href="<?php echo base_url(); ?>Login/">Iniciar sesión</a>
-                            </li> -->
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>

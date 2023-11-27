@@ -100,15 +100,13 @@ class Login extends CI_Controller
 		$cant = $mquery2->num_rows();
 
 		if ($cant > 0) {
-
 			$datos = $mquery2->row();
 
 			$this->session->set_userdata(IDUSERCOM, $datos->id);
 			$this->session->set_userdata(NOMBRECOM, $datos->nombre);
 
-			echo json_encode($datos->id);
+			echo json_encode($datos);
 		} else {
-
 			echo json_encode(null);
 		}
 	}
