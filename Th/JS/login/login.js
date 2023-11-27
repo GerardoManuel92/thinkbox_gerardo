@@ -60,4 +60,33 @@ function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
   
   }
 
-
+  function verificarUser(){
+    if( $("#usuario").val() != "" && $("#password").val() != "" ){
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: base_urlx+"Login/verificarUser",
+            data:{ 
+                usuariox:$("#usuario").val(),
+                passx:$("#password").val()
+              },
+            cache: false,
+            success: function(result)
+            {
+               if( result == null ){
+                  alert("Usuario o contraseña incorrecto, favor de intentarlo nuevamente");
+                  $("#password").val("");
+                  $("#password").focus();
+                }else if ( result > 0 ){
+                  window.location.href=base_urlx;
+                }else{
+                  alert("Error, favor de recargar la pagina e intentarlo nuevamente");
+                }
+            }
+        }).fail( function( jqXHR, textStatus, errorThrown ) {
+            detectarErrorJquery(jqXHR, textStatus, errorThrown);
+        });
+    }else{
+        alert("Favor de ingresar usuario y contraseña correctamente");
+    }
+}

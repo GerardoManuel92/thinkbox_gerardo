@@ -6,10 +6,10 @@
                 <!-- <div class="text-center mb-5 text-dark">Made with bootstrap</div> -->
                 <div class="card my-5">
 
-                    <form class="card-body cardbody-color p-lg-5">
+                    <div class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center">
-                            <img src="<?php echo base_url();?>Th/assets/img/logo.png" class="img-fluid profile-image-pic img-thumbnail" width="250px" alt="profile">
+                            <img src="<?php echo base_url(); ?>Th/assets/img/logo.png" class="img-fluid profile-image-pic img-thumbnail" width="250px" alt="profile">
                         </div>
                         <br>
                         <div class="mb-3">
@@ -36,10 +36,10 @@
                         <div class="mb-3">
                             <input type="password" class="form-control" id="password2" placeholder="Repetir password">
                         </div>
-                        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" onclick="registrarUsuario();">Registrar</button></div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-white">¿Tienes una cuenta? <a href="<?php echo base_url();?>Login" class="text-white fw-bold"> Inicia sesión</a>
+                        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100" onclick="registrar();">Registrar</button></div>
+                        <div id="emailHelp" class="form-text text-center mb-5 text-white">¿Tienes una cuenta? <a href="<?php echo base_url(); ?>Login" class="text-white fw-bold"> Inicia sesión</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
             </div>

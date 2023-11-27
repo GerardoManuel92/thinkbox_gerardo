@@ -22,113 +22,56 @@ class Registro extends CI_Controller
 
 
     public function __construct()
-
     {
-
-
-
         parent::__construct();
 
-        $this->load->model('General_Model');
-
-
-
         function changeString($string)
-
         {
-
-
 
             $string = trim($string);
 
-
-
             $string = str_replace(
-
                 array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-
                 array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
-
                 $string
-
             );
 
-
-
             $string = str_replace(
-
                 array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-
                 array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
-
                 $string
-
             );
 
-
-
             $string = str_replace(
-
                 array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-
                 array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
-
                 $string
-
             );
 
-
-
             $string = str_replace(
-
                 array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-
                 array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
-
                 $string
-
             );
 
-
-
             $string = str_replace(
-
                 array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-
                 array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
-
                 $string
-
             );
-
-
 
             $string = str_replace(
-
                 array('&ntilde;', '&Ntilde;', 'ç', 'Ç'),
-
                 array('n', 'N', 'c', 'C',),
-
                 $string
-
             );
-
-
 
             //Esta parte se encarga de eliminar cualquier caracter extraño
-
             $string = str_replace(
-
                 array('º', '~', '!', '&', '´', ';', '"',),
-
                 array('', '', '', '&amp;', '', '', '&quot;'),
-
                 $string
-
             );
-
-
-
 
 
             return $string;
@@ -144,14 +87,13 @@ class Registro extends CI_Controller
         $this->load->view('js/js-registro');
     }
 
-    public function registrarUsuario()
+    public function registrar()
     {
-
         $this->load->model('General_Model');
         $data_post = $this->input->post();
         $condicion = array(
-            'correo' => trim($data_post["correo"]),
-            'usuario' => trim($data_post['usuario'])
+            'correo' => trim($data_post["correox"]),
+            'usuario' => trim($data_post['usuariox'])
         );
         $usuario_existente = $this->General_Model->SelectUnafila("*", "usuario", $condicion);
         if ($usuario_existente != null) {
@@ -160,16 +102,21 @@ class Registro extends CI_Controller
             $table = 'usuario';
             $data = array(
                 'nombre' => trim($data_post['nombrex']),
-                'apellido' => trim($data_post['apellidox']),
+                'apellidos' => trim($data_post['apellidox']),
                 'empresa' => trim($data_post['empresax']),
                 'correo' => trim($data_post['correox']),
                 'usuario' => trim($data_post['usuariox']),
-                'contrasena' => openssl_encrypt($data_post['passwordx'], AES, KEY),
+                'contrasena' => trim($data_post['passwordx']),
                 'telefono' => trim($data_post['telefonox']),
-                'estado' => trim("1"),
+                'estado' => 1,
             );
-            $this->General_Model->altaERP($data, $table);
+            $idUsuario = $this->General_Model->altaERP($data, $table);
+            if ($idUsuario != null) {
+
+                echo json_encode(array("mensaje" => "Registro exitoso"));
+            } else {
+                echo json_encode(array("error" => "No se puedo crear al usuario"));
+            }
         }
-        echo json_encode(array("mensaje" => "Registro exitoso"));
     }
 }
