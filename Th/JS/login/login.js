@@ -80,9 +80,9 @@ function verificarUser() {
           // Mostrar el ID y el nombre del usuario en la etiqueta #strong-user
 
           window.location.href = base_urlx;
-          /* $('#strong-user').html(result.nombre); */
+
           alert('Bienvenido ' + result.nombre);
-          mostrarUsuario();
+          //mostrarUsuario();
         } else {
           alert("Error, favor de recargar la página e intentarlo nuevamente");
         }
@@ -115,19 +115,19 @@ function mostrarUsuario() {
 
         $.each(result, function (i, item) {
           data1 = item.id;
-          data2 = item.nombre;          
+          data2 = item.nombre;
 
         });
 
         // Se muestran los valores de los campos de la base de datos en los componentes HTML
-       
+
         $("#strong-user").html(data2);
-        
+
 
 
       } else {
         $("#strong-user").html('Anonimo');
-        
+
 
       }
     }

@@ -6,6 +6,9 @@ class Carrito extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('General_Model'); // Carga el modelo General_Model
+        $this->load->model('Carrito_Model'); // Carga el modelo Carrito_Model
+
         $this->load->library('session');
 
         function changeString($string)
@@ -60,6 +63,8 @@ class Carrito extends CI_Controller
             return $string;
         }
     }
+
+
     public function index()
     {
         $this->load->view('menu/head');
@@ -68,8 +73,50 @@ class Carrito extends CI_Controller
         $this->load->view('footer/footer');
         $this->load->view('js/js-carrito');
         $this->load->view('js/js');
-        
     }
+
+    public function agregar_servicio()
+    {
+        //$this->load->model('Carrito_Model'); // Carga el modelo Carrito_Model
+        // Recibe datos del producto por AJAX
+        $data = array(
+            'idservicio' => $this->input->post('idserviciox'),
+            'usuario' => $this->input->post('iduserx'),
+            'cantidad' => 1, // Puedes ajustar esto según tus necesidades
+            'subtotal' => $this->input->post('subtotalx'),
+            'iva' => 16,
+            'total' => $this->input->post('totalx') // Precio por defecto para la primera vez
+        );
+
+        $carrito_id = $this->Carrito_Model->agregar_servicio($data);
+
+        if ($carrito_id) {
+            echo json_encode(array('status' => 'success', 'message' => 'Producto agregado al carrito.'));
+        } else {
+            echo json_encode(array('status' => 'error', 'message' => 'Error al agregar el producto al carrito.'));
+        }
+    }
+
+    public function vaciar_carrito()
+    {
+        $this->Carrito_Model->vaciar_carrito();
+        echo json_encode(array('status' => 'success', 'message' => 'Carrito vaciado.'));
+    }
+
+    public function consultar_carrito()
+    {
+        $carrito = $this->Carrito_Model->consultar_carrito();
+        echo json_encode($carrito);
+    }
+
+    public function obtener_datos_carrito_idusuario($usuario_id) {
+        // Llamada a la función del modelo con el ID del usuario
+        $datosCarrito = $this->Carrito_Model->consultar_carrito_por_usuario($usuario_id);
+    
+        header('Content-Type: application/json');
+        echo json_encode($datosCarrito);
+    }
+
 
 
     public function addCarrito()
@@ -87,6 +134,7 @@ class Carrito extends CI_Controller
         echo json_encode($cart);
     }
 
+
     private function addCarritoCookie($data_post)
     {
         $cart = array();
@@ -96,12 +144,12 @@ class Carrito extends CI_Controller
             $cookie_name = 'cart_product_' . $i;
             if ($this->input->cookie($cookie_name)) {
                 $product = unserialize($this->input->cookie($cookie_name));
-               /*  if ($product['id'] == $data_post['idProductox']) {
+                if ($product['id'] == $data_post['idProductox']) {
                     // El producto ya está en el carrito, actualiza la cantidad
                     $product['cantidad'] += $data_post['cantidadx'];
                     // Guarda la cookie actualizada
                     $this->input->set_cookie($cookie_name, serialize($product), 3600);
-                } */
+                }
                 $cart[] = $product;
                 $id = $i;
             }
@@ -111,8 +159,9 @@ class Carrito extends CI_Controller
         if (!$this->productFound($cart, $data_post['idProductox'])) {
             $new_product = array(
                 'id' => $data_post['idProductox'],
-                'descripcion' => $data_post['descripcionx'],                
-                'precio' => $data_post['preciox']                
+                'descripcion' => $data_post['descripcionx'],
+                'cantidad' => 1,
+                'precio' => $data_post['preciox']
             );
             $cart[] = $new_product;
             // Guarda la nueva cookie
@@ -130,19 +179,20 @@ class Carrito extends CI_Controller
         $cart_en_sesion = ($cart_en_sesion) ? $cart_en_sesion : array();
 
         // Buscar el producto en el carrito de la sesión y obtener su índice
-       /*  foreach ($cart_en_sesion as &$product) {
+        foreach ($cart_en_sesion as &$product) {
             if ($product['id'] == $data_post['idProductox']) {
                 // El producto ya está en el carrito, actualiza la cantidad
-                $product['cantidad'] += $data_post['cantidadx'];
+                $product['cantidad'] += 1;
             }
-        } */
+        }
         $this->session->set_userdata(CARRITO, $cart_en_sesion);
         // Si el producto no estaba en el carrito de la sesión, agrégalo
         if (!$this->productFound($cart_en_sesion, $data_post['idProductox'])) {
             $new_product = array(
                 'id' => $data_post['idProductox'],
-                'descripcion' => $data_post['descripcionx'],                
-                'precio' => $data_post['preciox']                
+                'descripcion' => $data_post['descripcionx'],
+                'cantidad' => 1,
+                'precio' => $data_post['preciox']
             );
             $cart_en_sesion[] = $new_product;
             // Guarda el carrito actualizado en la sesión

@@ -1,36 +1,38 @@
-function detectarErrorJquery(jqXHR, textStatus, errorThrown){
+function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
     if (jqXHR.status === 0) {
-  
+
         alert('Error en conexión a internet: Verifique su conexión.');
-  
+
     } else if (jqXHR.status == 404) {
-  
+
         alert('Pagina no encontrada[404]');
-  
+
     } else if (jqXHR.status == 500) {
-  
+
         alert('Error en la respuesta del servidor [500].');
-  
+
     } else if (textStatus === 'parsererror') {
-  
+
         alert('Error, en la crecion del JSON, parse failed');
-  
+
     } else if (textStatus === 'timeout') {
-  
+
         alert('Tiempo de espera excedido.');
-  
+
     } else if (textStatus === 'abort') {
-  
+
         alert('La peticion AJax ha sido abortada');
-  
+
     } else {
-  
+
         alert('El error no se puedo identificar: ' + jqXHR.responseText);
-  
+
     }
-  
+
 }
-function validarInput(input) {
+
+
+/* function validarInput(input) {
     // Obtener el valor del input
     var valorInput = input.value;
 
@@ -111,4 +113,134 @@ function actualizarProducto(idProducto){
             detectarErrorJquery(jqXHR, textStatus, errorThrown);
         });
     }
+} */
+
+function agregarAlCarrito() {
+
+    $.ajax({
+        type: 'POST',
+        url: base_urlx + "Carrito/agregar_servicio",
+        data: {
+            idserviciox: $('#id1').text(),
+            iduserx: $('#idUser').text(),
+            subtotalx: ($('#precio1').text() / 1.16),
+            totalx: $('#precio1').text()
+        },
+        success: function () {
+            actualizarCarrito();
+
+        }
+    });
+
 }
+
+function agregarAlCarrito2() {
+
+    $.ajax({
+        type: 'POST',
+        url: base_urlx + "Carrito/agregar_servicio",
+        data: {
+            idserviciox: $('#id2').text(),
+            iduserx: $('#idUser').text(),
+            subtotalx: ($('#precio2').text() / 1.16),
+            totalx: $('#precio2').text()
+        },
+        success: function () {
+            obtenerDatosCarrito();
+
+        }
+    });
+
+}
+
+function vaciarCarrito() {
+    $.ajax({
+        type: 'POST',
+        url: base_urlx + "Carrito/vaciar_carrito",
+        success: function () {
+            obtenerDatosCarrito();
+        }
+    });
+}
+
+// Supongamos que tienes una función para obtener los datos del carrito mediante AJAX.
+function obtenerDatosCarrito() {
+
+    var idUsuario = $('#idUser').text();
+
+    $.ajax({
+        type: 'GET',
+        url: base_urlx + 'Carrito/obtener_datos_carrito_idusuario/' + idUsuario,
+        success: function (data) {
+            mostrarDatosCarrito(data);
+        },
+        error: function (error) {
+            console.error('Error al obtener datos del carrito:', error);
+        }
+    });
+}
+
+// Función para mostrar los datos del carrito en la tabla HTML.
+function mostrarDatosCarrito(carrito) {
+    var tabla = $('#carritoTable tbody');
+    var tabla_costos = $('#tabla-costos tbody');
+    tabla.empty(); // Limpiar la tabla antes de agregar nuevos datos
+
+    // Inicializar variables
+    var subtotal = 0;
+    var iva = 0;
+    var total = 0;
+
+    $.each(carrito, function (index, item) {
+        var fila = '<tr>' +
+            '<td>' + item.cantidad + '</td>' +
+            '<td>' + 'Pagina web ' + item.servicio + '</td>' +
+            '<td>' + '$ ' + item.subtotal + '</td>' +
+            /* '<td>' + item.iva + '</td>' +
+            '<td>' + '$ ' + item.total + '</td>' + */
+            '</tr>';
+        tabla.append(fila);
+
+        // Asumo que `item.subtotal`, `item.iva` y `item.total` son números, si no, necesitarás convertirlos
+        subtotal += parseFloat(item.subtotal);
+        iva += parseFloat(item.iva);
+        total += parseFloat(item.total);
+    });
+
+    tabla_costos.find('th').empty();
+
+    /* var filaCostos = '<tr>' +
+        '<td>' + subtotal.toFixed(2) + '</td>' +
+        '<td>' + iva.toFixed(2) + '</td>' +
+        '<td>' + total.toFixed(2) + '</td>' +
+        '</tr>';
+
+    tabla_costos.append(filaCostos); */
+
+    // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
+    $('#th-subtotal').text('$ '+ subtotal.toFixed(2));
+    $('#th-iva').text(iva.toFixed(2));
+    $('#th-total').text('$ '+ total.toFixed(2));
+}
+
+// Llamar a la función para obtener y mostrar los datos del carrito al cargar la página.
+$(document).ready(function () {
+    obtenerDatosCarrito();
+});
+
+
+/* function actualizarCarrito() {
+    $.ajax({
+        type: 'GET',
+        url: base_urlx + "Carrito",
+        success: function (data) {
+            $('#carrito').html(data);
+        }
+    });
+}
+
+$(document).ready(function () {
+    actualizarCarrito();
+});
+ */
+

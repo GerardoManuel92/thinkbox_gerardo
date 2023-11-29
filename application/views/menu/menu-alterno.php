@@ -12,8 +12,6 @@
                         <li class="contact">
                             <i class="fas fa-phone" style="font-size: 20px; color:#eb8b00;"></i>
                             <p>Hablar con un asesor <strong><a href="tel:<?php echo NUMERO_MARCAR; ?>" style="font-weight: bold; font-size:16px;"> <?php echo NUMERO_TEL; ?></a></strong></p>
-                            <!-- <a href="<?php echo base_url(); ?>Login/"><i class="fa fa-user" aria-hidden="true" style="font-size: 18px; color:#eb8b00;"></i></a> -->
-                            <a href="<?php echo base_url(); ?>Carrito/"><i class="fas fa-shopping-cart" style="font-size: 18px; color:#eb8b00;"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -80,9 +78,49 @@
                                 <li><a href="<?php echo base_url(); ?>Faq/">Preguntas frecuentes</a></li>
                             </ul>
                         </li>
-                        <!-- <li>
-                            <a style="font-size: 12px;" href="<?php echo base_url(); ?>Login/">Iniciar sesión</a>
-                        </li> -->
+                        <?php
+
+                        $data = "id,nombre";
+                        $tabla = "usuario";
+                        $condicion = array('id' => $this->session->userdata(IDUSERCOM));
+                        $info = $this->General_Model->SelectUnafila($data, $tabla, $condicion);
+
+                        if ($info !== null) {
+                        ?>
+                            <!--  Si hay una sesión iniciada, entonces se mostrará el nombre del usuario -->
+                            <li class="dropdown">
+                                <p hidden id="idUser"><?php echo $info->id ?></p>
+                                <a style="font-size: 12px; color:#eb8b00;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <?php
+                                    $nombreCompleto = $info->nombre;
+                                    $partesNombre = explode(' ', $nombreCompleto);
+
+                                    // Verificar si hay al menos una palabra en el nombre
+                                    if (count($partesNombre) > 0) {
+                                        $primerNombre = $partesNombre[0];
+                                        echo $primerNombre;
+                                    } else {
+                                        echo "Nombre no válido";
+                                    }
+                                    ?>
+                                </a>
+                                <!--  Aqui se muestran las acciones que se realizarán dentro del perfil de usuario -->
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo base_url(); ?>Carrito/">Ver carrito</a></li>
+                                    <li><a href="<?php echo base_url('welcome/logout'); ?>" id="logoutLink">Cerrar sesión</a></li>
+                                </ul>
+                            </li>
+                        <?php
+                        } else {
+                        ?>
+                            <!-- Si no hay una sesión iniciada, entonces se muestra la opción de Inicio de sesión -->
+                            <li>
+                                <a style="font-size: 12px; color:#eb8b00;" href="<?php echo base_url(); ?>Login/">Iniciar sesión</a>
+                            </li>
+
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>

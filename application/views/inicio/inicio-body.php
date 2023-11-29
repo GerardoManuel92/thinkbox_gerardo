@@ -441,7 +441,8 @@
                     <h3 class="plan-title" id="menus4">
                         <!-- 4 menús -->
                     </h3>
-                    <div class="plan-cost"><span class="plan-price" id="precio1">$</span><span class="plan-type">/ MXN</span></div>
+                    
+                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio1" style="font-size: 30px;">$</span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -452,7 +453,7 @@
                         <li><i class="ion-checkmark"> </i>Adaptación a dispositivos móviles</li>
                     </ul>
                     <div class="plan-select"><!-- <a href=""></a> -->
-                        <button type="submit" class="btn btn-secondary" onclick="addcarritoServicio1();">Agregar al carrito</button>
+                        <button type="submit" class="btn btn-secondary" onclick="agregarAlCarrito();">Agregar al carrito</button>
                     </div>
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
@@ -460,7 +461,7 @@
                     <h3 class="plan-title" id="menus5">
                         <!-- 5 menús -->
                     </h3>
-                    <div class="plan-cost"><span class="plan-price" id="precio2">$<!-- 2000 --></span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio2" style="font-size: 30px;">$<!-- 2000 --></span><span class="plan-type">/ MXN</span></div>
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios, proyectos o galería y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -469,8 +470,10 @@
                         <li><i class="ion-checkmark"> </i>Optimización para motores de búsqueda (SEO)</li>
                         <li><i class="ion-checkmark"> </i>Seguridad en línea</li>
                         <li><i class="ion-checkmark"> </i>Adaptación a dispositivos móviles</li>
-                    </ul>
-                    <div class="plan-select"><a href="">Agregar al carrito</a></div>
+                    </ul>                    
+                    <div class="plan-select">
+                        <button type="submit" class="btn btn-secondary" onclick="agregarAlCarrito2();">Agregar al carrito</button>
+                    </div>
                 </div>
                 <div class="plan col-lg-8 offset-lg-2">
                     <h3 class="plan-title">
@@ -508,6 +511,7 @@
             </div>
         </div>
     </div>
+    
 
     <!-- Termina area de cards de precios -->
 

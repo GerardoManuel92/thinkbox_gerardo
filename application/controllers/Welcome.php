@@ -54,4 +54,12 @@ class Welcome extends CI_Controller {
         echo json_encode($this->General_Model->infoxQuery($query));
 
 	}
+
+	public function logout() {
+		// Destruir la sesión
+		$this->session->sess_destroy();
+		
+		// Devolver una respuesta (por ejemplo, éxito)
+		echo json_encode(['success' => true]);
+	}
 }
