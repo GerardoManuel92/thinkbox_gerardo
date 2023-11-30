@@ -31,7 +31,6 @@ function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
 
 }
 
-
 /* function validarInput(input) {
     // Obtener el valor del input
     var valorInput = input.value;
@@ -123,12 +122,14 @@ function agregarAlCarrito() {
         data: {
             idserviciox: $('#id1').text(),
             iduserx: $('#idUser').text(),
-            subtotalx: ($('#precio1').text() / 1.16),
-            totalx: $('#precio1').text()
+            subtotalx: $('#precio1').text(),
+            ivax: ($('#precio1').text() * 0.16),
+            totalx: ($('#precio1').text() * 1.16)
         },
         success: function () {
-            actualizarCarrito();
-
+            alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
+            location.reload();
+            obtenerDatosCarrito();
         }
     });
 
@@ -142,12 +143,14 @@ function agregarAlCarrito2() {
         data: {
             idserviciox: $('#id2').text(),
             iduserx: $('#idUser').text(),
-            subtotalx: ($('#precio2').text() / 1.16),
-            totalx: $('#precio2').text()
+            subtotalx: $('#precio2').text(),
+            ivax: ($('#precio2').text() * 0.16),
+            totalx: ($('#precio2').text() * 1.16)
         },
         success: function () {
+            alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
+            location.reload();
             obtenerDatosCarrito();
-
         }
     });
 
@@ -193,11 +196,10 @@ function mostrarDatosCarrito(carrito) {
 
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
-            '<td>' + item.cantidad + '</td>' +
+            '<td> <input type="number" class="form-control" value="' + item.cantidad + 
+                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" > </td>' +
             '<td>' + 'Pagina web ' + item.servicio + '</td>' +
             '<td>' + '$ ' + item.subtotal + '</td>' +
-            /* '<td>' + item.iva + '</td>' +
-            '<td>' + '$ ' + item.total + '</td>' + */
             '</tr>';
         tabla.append(fila);
 
@@ -209,25 +211,39 @@ function mostrarDatosCarrito(carrito) {
 
     tabla_costos.find('th').empty();
 
-    /* var filaCostos = '<tr>' +
-        '<td>' + subtotal.toFixed(2) + '</td>' +
-        '<td>' + iva.toFixed(2) + '</td>' +
-        '<td>' + total.toFixed(2) + '</td>' +
-        '</tr>';
-
-    tabla_costos.append(filaCostos); */
+    // Verificar si hay elementos en el carrito y mostrar el badge
+    if (carrito.length > 0) {
+        $('#alertCarrito').show();
+    } else {
+        $('#alertCarrito').hide();
+        var fila = '<tr>' +
+            '<td colspan="3" style="text-align:center; font-weight: bold;">' + 'No se encontraron pedidos dentro del carrito' + '</td>' +
+            '</tr>';
+        tabla.append(fila);
+    }
 
     // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
-    $('#th-subtotal').text('$ '+ subtotal.toFixed(2));
-    $('#th-iva').text(iva.toFixed(2));
-    $('#th-total').text('$ '+ total.toFixed(2));
+    $('#th-subtotal').text('$ ' + subtotal.toFixed(2));
+    $('#th-iva').text('$ ' + iva.toFixed(2));
+    $('#th-total').text('$ ' + total.toFixed(2));
 }
+
 
 // Llamar a la función para obtener y mostrar los datos del carrito al cargar la página.
 $(document).ready(function () {
     obtenerDatosCarrito();
 });
 
+
+function validarCantidad() {
+    var cantidad = $('#cant_serv').val();
+
+    if (cantidad > 0) {
+
+    } else {
+        alert('Cantidad no válida');
+    }
+}
 
 /* function actualizarCarrito() {
     $.ajax({

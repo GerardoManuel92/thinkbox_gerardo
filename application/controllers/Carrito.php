@@ -84,7 +84,7 @@ class Carrito extends CI_Controller
             'usuario' => $this->input->post('iduserx'),
             'cantidad' => 1, // Puedes ajustar esto según tus necesidades
             'subtotal' => $this->input->post('subtotalx'),
-            'iva' => 16,
+            'iva' => $this->input->post('ivax'),
             'total' => $this->input->post('totalx') // Precio por defecto para la primera vez
         );
 

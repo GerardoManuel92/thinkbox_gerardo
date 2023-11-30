@@ -442,7 +442,8 @@
                         <!-- 4 menús -->
                     </h3>
                     
-                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio1" style="font-size: 30px;">$</span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio1" style="font-size: 30px;">$</span><span class="plan-type">/ MXN</span><br><span style="font-size: 12px;">(Este precio no incluye IVA)</span></div>
+                    
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>
@@ -461,7 +462,7 @@
                     <h3 class="plan-title" id="menus5">
                         <!-- 5 menús -->
                     </h3>
-                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio2" style="font-size: 30px;">$<!-- 2000 --></span><span class="plan-type">/ MXN</span></div>
+                    <div class="plan-cost"><span class="plan-price" style="font-size: 26px;">$ </span><span class="plan-price" id="precio2" style="font-size: 30px;">$<!-- 2000 --></span><span class="plan-type">/ MXN</span><br><span style="font-size: 12px;">(Este precio no incluye IVA)</span></div>
                     <ul class="plan-features">
                         <li><i class="ion-checkmark"> </i>Menús indispensables para tu sitio (Inicio, nosotros, servicios, proyectos o galería y contacto)</li>
                         <li><i class="ion-checkmark"> </i>5 cuentas de correo profesionales</li>

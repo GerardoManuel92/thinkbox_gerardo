@@ -76,8 +76,7 @@ consultarCarrito();
 			cache: false,
 			success: function(result)
 			{
-				consultarCarrito();
-				console.log($('#id1').text()+" "+$('#menus4').text())
+				consultarCarrito();				
 			}
 		}).fail( function( jqXHR, textStatus, errorThrown ) {
 			detectarErrorJquery(jqXHR, textStatus, errorThrown);
@@ -101,8 +100,7 @@ consultarCarrito();
 			cache: false,
 			success: function(result)
 			{				
-				consultarCarrito();	
-				console.log($('#id2').text());							
+				consultarCarrito();											
 			}
 			
 			

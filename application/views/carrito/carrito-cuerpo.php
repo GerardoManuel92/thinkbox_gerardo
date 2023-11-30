@@ -48,7 +48,7 @@
                                         <th id="th-subtotal"></th>
                                     </tr>
                                     <tr>
-                                        <td style="background-color: #666666; color:white; font-weight: bold;">Iva (%)</td>
+                                        <td style="background-color: #666666; color:white; font-weight: bold;">Iva (16%)</td>
                                         <th id="th-iva"></th>
                                     </tr>
                                     <tr>

@@ -89,9 +89,9 @@
 
                             if ($info !== null) {
                             ?>
-                           <!--  Si hay una sesión iniciada, entonces se mostrará el nombre del usuario -->
+                                <!--  Si hay una sesión iniciada, entonces se mostrará el nombre del usuario -->
                                 <li class="dropdown">
-                                    <p hidden id="idUser"><?php echo $info->id?></p>
+                                    <p hidden id="idUser"><?php echo $info->id ?></p>
                                     <a style="font-size: 12px; color:#eb8b00;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <?php
                                         $nombreCompleto = $info->nombre;
@@ -106,16 +106,16 @@
                                         }
                                         ?>
                                     </a>
-                                   <!--  Aqui se muestran las acciones que se realizarán dentro del perfil de usuario -->
+                                    <!--  Aqui se muestran las acciones que se realizarán dentro del perfil de usuario -->
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo base_url(); ?>Carrito/">Ver carrito</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Carrito/">Ver carrito<span class="badge badge-danger" id="alertCarrito" style="display:none; margin-left: 110px; background-color:#eb8b00;">1</span></a></li>
                                         <li><a href="<?php echo base_url('welcome/logout'); ?>" id="logoutLink">Cerrar sesión</a></li>
                                     </ul>
                                 </li>
                             <?php
                             } else {
                             ?>
-                            <!-- Si no hay una sesión iniciada, entonces se muestra la opción de Inicio de sesión -->
+                                <!-- Si no hay una sesión iniciada, entonces se muestra la opción de Inicio de sesión -->
                                 <li>
                                     <a style="font-size: 12px; color:#eb8b00;" href="<?php echo base_url(); ?>Login/">Iniciar sesión</a>
                                 </li>
