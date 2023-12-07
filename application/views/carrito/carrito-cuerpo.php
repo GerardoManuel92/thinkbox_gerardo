@@ -41,6 +41,11 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <!-- Se ocultan campo donde se muestra el precio parcial del servicio  -->
+                            <input type="text" name="" id="val_subtotal" hidden>                            
+
+                            <!-- Se muestra el subtotal, valor de iva o total por medio de celdas -->
                             <div class="col-sm-12 col-lg-6 order-lg-2 ml-auto">
                                 <table class="table table-bordered" id="tabla-costos">
                                     <tr>
@@ -86,7 +91,8 @@
                     </div>
                     <div class="buttons">
                         <!-- <div class="pull-left"><a href="<?php echo base_url(); ?>" class="btn btn-primary">Continuar Comprando</a></div> -->
-                        <div class="pull-right"><a href="<?php echo (isset($iduser)) ?  base_url('Pago') : base_url('Login'); ?>" class="btn btn-primary">Pagar</a></div>
+                        <!-- <div class="pull-right"><a href="<?php echo (isset($iduser)) ?  base_url('Pago') : base_url('Login'); ?>" class="btn btn-primary">Pagar</a></div> -->
+                        <div class="pull-right"><a href="<?php echo base_url('Pago'); ?>" class="btn btn-primary">Pagar</a></div>
                     </div>
                     <br>
                     <br>

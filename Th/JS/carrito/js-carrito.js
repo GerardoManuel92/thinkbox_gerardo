@@ -144,7 +144,7 @@ function agregarAlCarrito2() {
             idserviciox: $('#id2').text(),
             iduserx: $('#idUser').text(),
             subtotalx: $('#precio2').text(),
-            ivax: ($('#precio2').text() * 0.16),
+            ivax: ($('#precio2').text() * (16/100)),
             totalx: ($('#precio2').text() * 1.16)
         },
         success: function () {
@@ -197,19 +197,23 @@ function mostrarDatosCarrito(carrito) {
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
             '<td> <input type="number" class="form-control" value="' + item.cantidad + 
-                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" > </td>' +
-            '<td>' + 'Pagina web ' + item.servicio + '</td>' +
-            '<td>' + '$ ' + item.subtotal + '</td>' +
+                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"> </td>' +
+            '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
+            '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
             '</tr>';
         tabla.append(fila);
+        $('#val_subtotal').val(item.subtotal);
 
-        // Asumo que `item.subtotal`, `item.iva` y `item.total` son números, si no, necesitarás convertirlos
+        // Se realiza la conversion a flotante para mostrar subtotal, iva y total a pagar
         subtotal += parseFloat(item.subtotal);
         iva += parseFloat(item.iva);
         total += parseFloat(item.total);
     });
 
+     
+
     tabla_costos.find('th').empty();
+    
 
     // Verificar si hay elementos en el carrito y mostrar el badge
     if (carrito.length > 0) {
@@ -221,6 +225,7 @@ function mostrarDatosCarrito(carrito) {
             '</tr>';
         tabla.append(fila);
     }
+    
 
     // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
     $('#th-subtotal').text('$ ' + subtotal.toFixed(2));
@@ -235,15 +240,66 @@ $(document).ready(function () {
 });
 
 
-function validarCantidad() {
-    var cantidad = $('#cant_serv').val();
-
-    if (cantidad > 0) {
-
-    } else {
-        alert('Cantidad no válida');
+function validarCantidad(input) {
+    if (input.value <= 0) {
+        alert('La cantidad que ingresaste no es válida, debe ser mínimo 1');
+        input.value = 1;
+    }else {
+        calcularSubtotal();
     }
 }
+
+function calcularSubtotal() {
+    var cantidad = parseInt($('#cant_serv').val(), 10);
+    var subtotalStr = $('#val_subtotal').val();
+
+    // Verifica si subtotalStr es undefined o nulo antes de intentar realizar operaciones
+    if (subtotalStr === undefined || subtotalStr === null) {
+        alert('El valor del subtotal no está definido.');
+        return;
+    }
+
+    var subtotalNum = parseFloat(subtotalStr.replace(/\$|\s/g, ''));
+
+    if (isNaN(cantidad) || isNaN(subtotalNum)) {
+        alert('Ingresa valores numéricos válidos.');
+        return;
+    }
+
+    var subt = cantidad * subtotalNum;
+    $('#subtotal').text('$ ' + subt.toFixed(2));
+
+    // Establece el valor en el campo val_nvoresultado
+    $('#th-subtotal').text('$ ' + subt.toFixed(2));
+    calcularIva_y_Total();    
+}
+
+function calcularIva_y_Total() {
+    // Obtén el texto del elemento #th-subtotal
+    var subtotalText = $('#th-subtotal').text();
+
+    // Convierte el texto a un número (puede ser NaN si el texto no es un número válido)
+    var subtotal = parseFloat(subtotalText.replace(/\$|\s/g, ''));
+
+    // Verifica si el valor de subtotal es un número válido
+    if (!isNaN(subtotal)) {
+        // Realiza los cálculos solo si subtotal es un número válido
+        var iva = parseFloat(subtotal * (16/100));
+        var total = parseFloat(subtotal + iva);
+
+        // Muestra el valor de iva
+        
+
+        // Actualiza el texto de #th-iva y #th-total con los valores calculados
+        $('#th-iva').text('$ ' + iva.toFixed(2));
+        $('#th-total').text('$ ' + total.toFixed(2));
+        
+    } else {
+        // Muestra un mensaje de error si el subtotal no es un número válido
+        alert("El valor de subtotal no es un número válido. ");
+    }
+}
+
 
 /* function actualizarCarrito() {
     $.ajax({

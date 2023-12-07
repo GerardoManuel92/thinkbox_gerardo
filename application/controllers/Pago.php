@@ -5,6 +5,10 @@ class Pago extends CI_Controller {
     public function __construct()
     {
 		parent::__construct();
+        $this->load->library('session');
+
+        $this->load->model('General_Model');
+        $this->load->model('Carrito_Model');
 
         function changeString($string)
         {
@@ -60,10 +64,12 @@ class Pago extends CI_Controller {
         
     }
     public function index(){
-        $this->load->view('head/head');
+        $this->load->view('menu/head');
+        $this->load->view('menu/menu-alterno');
         $this->load->view('pago/pago-cuerpo');
         $this->load->view('footer/footer');
-        $this->load->view('pago/js/pago-js');
+        $this->load->view('js/js-carrito');
+        $this->load->view('js/js');
     }
     public function pagarconClip(){
         $this->load->model('General_Model');
