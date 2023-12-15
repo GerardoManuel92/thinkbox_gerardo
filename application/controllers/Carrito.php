@@ -67,12 +67,18 @@ class Carrito extends CI_Controller
 
     public function index()
     {
-        $this->load->view('menu/head');
-        $this->load->view('menu/menu-alterno');
-        $this->load->view('carrito/carrito-cuerpo');
-        $this->load->view('footer/footer');
-        $this->load->view('js/js-carrito');
-        $this->load->view('js/js');
+        $iduser = $this->session->userdata(IDUSERCOM);
+
+        if ($iduser > 0) {
+            $this->load->view('menu/head');
+            $this->load->view('menu/menu-alterno');
+            $this->load->view('carrito/carrito-cuerpo');
+            $this->load->view('footer/footer');
+            $this->load->view('js/js-carrito');
+            $this->load->view('js/js');
+        } else {
+            redirect('Welcome');
+        }
     }
 
     public function agregar_servicio()
@@ -109,12 +115,34 @@ class Carrito extends CI_Controller
         echo json_encode($carrito);
     }
 
-    public function obtener_datos_carrito_idusuario($usuario_id) {
+    public function obtener_datos_carrito_idusuario($usuario_id)
+    {
         // Llamada a la función del modelo con el ID del usuario
         $datosCarrito = $this->Carrito_Model->consultar_carrito_por_usuario($usuario_id);
-    
+
         header('Content-Type: application/json');
         echo json_encode($datosCarrito);
+    }
+
+    public function actualizar_carrito(){
+
+        $data_post = $this->input->post();       
+
+        $datos = array(
+
+            'cantidad' => $data_post['cantidadx'],
+            'subtotal' => $data_post['subtotalx'],
+            'iva' => $data_post['ivax'],
+            'total' => $data_post['totalx'],            
+        );
+        $tabla = "carrito";
+        $condicion = array('usuario' => $data_post["iduserx"]);
+
+        $update = $this->General_Model->updateERP($datos, $tabla, $condicion);
+
+
+
+        echo json_encode($update);
     }
 
 

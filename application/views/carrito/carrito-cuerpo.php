@@ -89,10 +89,8 @@
                             </table>
                         </div> -->
                     </div>
-                    <div class="buttons">
-                        <!-- <div class="pull-left"><a href="<?php echo base_url(); ?>" class="btn btn-primary">Continuar Comprando</a></div> -->
-                        <!-- <div class="pull-right"><a href="<?php echo (isset($iduser)) ?  base_url('Pago') : base_url('Login'); ?>" class="btn btn-primary">Pagar</a></div> -->
-                        <div class="pull-right"><a href="<?php echo base_url('Pago'); ?>" class="btn btn-primary">Pagar</a></div>
+                    <div class="buttons">                       
+                        <div class="pull-right"><a href="<?php echo base_url('Pago'); ?>" onclick="actualizarCarrito();" class="btn btn-primary">Pagar</a></div>
                     </div>
                     <br>
                     <br>

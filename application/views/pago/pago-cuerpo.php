@@ -1,33 +1,34 @@
 <style>
-        @media (max-width: 767px) {
-            .fixed-width-column {
-                min-width: 150px; 
-                max-width: 150px; 
-                width: 150px; 
-            }
+    @media (max-width: 767px) {
+        .fixed-width-column {
+            min-width: 150px;
+            max-width: 150px;
+            width: 150px;
         }
-    </style>
-    <body>
-	<!-- preloader Start -->
-	<!-- <div id="preloader">
+    }
+</style>
+
+<body>
+    <!-- preloader Start -->
+    <!-- <div id="preloader">
 		<div id="status">
 			<img src="images/header/loder.gif" id="preloader_image" alt="loader">
 		</div>
 	</div> -->
-	<!-- Top Scroll Start -->	<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
-	<!-- Top Scroll End -->
-	<div id="inicio" class="width_calc">
-		<!--try top banner main wrapper Start-->
-		<div class="try_top_banner_wrapper">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="try_logo_wrapper try_logo_wrapper_top">
-                            <a href="<?php echo base_url();?>Inicio">
-							<img src="<?php echo base_url();?>landing/images/header/comanorsa_logo.svg" alt="logo" style="width: 180px; height: 70px; margin-bottom: 30px;" >
-							</a>
-						</div>
-					</div>
+    <!-- Top Scroll Start --> <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
+    <!-- Top Scroll End -->
+    <div id="inicio" class="width_calc">
+        <!--try top banner main wrapper Start-->
+        <div class="try_top_banner_wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="try_logo_wrapper try_logo_wrapper_top">
+                            <a href="<?php echo base_url(); ?>Inicio">
+                                <img src="<?php echo base_url(); ?>Th/assets/img/logo.png?v=<?php echo time(); ?>" class="logo logo-scrolled" alt="Logo" style="height: 60px;">
+                            </a>
+                        </div>
+                    </div>
                     <br>
                     <br>
                     <br>
@@ -36,11 +37,11 @@
                         <div class="row">
                             <!--Middle Part Start-->
                             <div id="content" class="col-sm-12">
-                            <h2 class="title">Pagar</h2>
-                            <br>
-                            <div class="so-onepagecheckout row">
-                                <div class="col-left col-sm-3">
-                                <div class="panel panel-default">
+                                <h2 class="title" style="text-align: center;">Pagar</h2>
+                                <br>
+                                <h4 class="title" style="text-align: center;">Resúmen del pedido</h4>
+                                <div class="so-onepagecheckout row"> <!-- <div class="col-left col-sm-3"> -->
+                                    <!-- <div class="panel panel-default">
                                     <div class="panel-heading">
                                     <h4 class="panel-title"><i class="fa fa-book"></i>Tu dirección</h4>
                                     </div>
@@ -116,73 +117,73 @@
                                             </div>
                                             </fieldset>
                                         </div>
-                                </div>
-                                </div>
-                                <div class="col-right col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title"><i class="fa fa-truck"></i>  Método de Entrega</h4>
+                                </div> -->
+                                    <!-- </div> -->
+                                    <div class="col-right col-sm-12 col-lg-12">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-offset-8 col-lg-12">
+                                                <table class="table table-bordered" id="carritoTable2">
+                                                    <thead style="background-color: #666666; color:white;">
+                                                        <tr>
+                                                            <th>Cantidad</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Precio</th>
+                                                            <!-- <th>IVA (%)</th>
+                                            <th>Total</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Filas del carrito se agregarán aquí -->
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="panel-body ">
-                                                <p>Please select the preferred shipping method to use on this order.</p>
-                                                <div class="radio">
-                                                <label>
-                                                    <input type="radio" checked="checked" name="shippingOption" id="freeShipping">
-                                                        Free Shipping - $0.00
-                                                </label>
+                                            <div class="col-sm-12 col-sm-offset-12 col-lg-6" style="margin-left: 50%; overflow-x:auto;">
+                                                <table class="table table-bordered" id="tabla-costos2">
+                                                    <tr>
+                                                        <td style="width: 190px; background-color: #666666; color:white; font-weight: bold;">Subtotal</td>
+                                                        <th id="th-subtotal2"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="background-color: #666666; color:white; font-weight: bold;">Iva (16%)</td>
+                                                        <th id="th-iva2"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="background-color: #666666; color:white; font-weight: bold;">Total</td>
+                                                        <th id="th-total2"></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="panel panel-default">
+                                                    <!-- <div class="panel-heading">
+                                                        <h4 class="panel-title"><i class="fa fa-pencil"></i> Añada comentarios sobre su pedido</h4>
+                                                    </div> -->
+                                                    <div class="panel-body" style="margin-left: 30%;">
+                                                        <!-- <textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea> -->
+                                                        <br>
+                                                        <label class="control-label" for="confirm_agree">
+                                                            <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+                                                            <span>He leído y acepto los <a class="agree" href="#"><b>Términos &amp; Condiciones</b></a></span> </label>
+                                                        <div class="buttons">
+                                                            <div class="pull-right">
+                                                                <div>
+                                                                    <a href="javascript:realizarPago()" title="Paga con Clip">
+                                                                        <img src="https://prod-ses-email-templates-assets.s3.amazonaws.com/payment/pay-with-clip/button-logos/es/medios-de-pagos/svg/naranja_hover_con_sombra.svg" alt="Logo Paga con Clip" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" name="shippingOption" id="flatRateShipping">
-                                                            Flat Shipping Rate - $7.50
-                                                    </label>
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                        <h4 class="panel-title"><i class="fa fa-shopping-cart"></i>  Carrito de compras</h4>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="table-responsive" id="carritoTable">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                        <h4 class="panel-title"><i class="fa fa-pencil"></i> Añada comentarios sobre su pedido</h4>
-                                        </div>
-                                        <div class="panel-body">
-                                            <textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea>
-                                            <br>
-                                            <label class="control-label" for="confirm_agree">
-                                            <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-                                            <span>He leído y acepto los <a class="agree" href="#"><b>Términos &amp; Condiciones</b></a></span> </label>
-                                            <div class="buttons">
-                                            <div class="pull-right">
-                                                <div>      
-                                                    <a href="javascript:realizarPago()" title="Paga con Clip">
-                                                        <img src="https://prod-ses-email-templates-assets.s3.amazonaws.com/payment/pay-with-clip/button-logos/es/medios-de-pagos/svg/naranja_hover_con_sombra.svg" alt="Logo Paga con Clip" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
                             <!--Middle Part End -->
                         </div>
                     </div>
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>

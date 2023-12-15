@@ -156,6 +156,13 @@ function agregarAlCarrito2() {
 
 }
 
+
+
+/* $(document).ready(function () {
+    actualizarCarrito();
+}); */
+
+
 function vaciarCarrito() {
     $.ajax({
         type: 'POST',
@@ -176,6 +183,7 @@ function obtenerDatosCarrito() {
         url: base_urlx + 'Carrito/obtener_datos_carrito_idusuario/' + idUsuario,
         success: function (data) {
             mostrarDatosCarrito(data);
+            mostrarDatosCarritoResumen(data);
         },
         error: function (error) {
             console.error('Error al obtener datos del carrito:', error);
@@ -208,6 +216,7 @@ function mostrarDatosCarrito(carrito) {
         subtotal += parseFloat(item.subtotal);
         iva += parseFloat(item.iva);
         total += parseFloat(item.total);
+        /* actualizarCarrito(item.cantidad, item.subtotal, item.iva, item.total); */
     });
 
      
@@ -231,6 +240,77 @@ function mostrarDatosCarrito(carrito) {
     $('#th-subtotal').text('$ ' + subtotal.toFixed(2));
     $('#th-iva').text('$ ' + iva.toFixed(2));
     $('#th-total').text('$ ' + total.toFixed(2));
+
+    
+}
+
+function actualizarCarrito(cantidad, subtotal, iva, total) {
+
+    var idUsuario = $('#idUser').text();
+
+    $.ajax({
+        type: 'POST',
+        url: base_urlx + "Carrito/actualizar_carrito",
+        data: {            
+            iduserx : idUsuario,
+            cantidadx : cantidad,
+            subtotalx : subtotal,
+            ivax : iva,
+            totalx : total
+        },
+        success: function () {
+            alert('Se ha actualizado el carrito, serás dirigido a la sección Pagar');  
+            alert($('#th-subtotal').text());       
+        }
+    });
+}
+
+function mostrarDatosCarritoResumen(carrito) {
+    var tabla = $('#carritoTable2 tbody');
+    var tabla_costos = $('#tabla-costos2 tbody');
+    tabla.empty(); // Limpiar la tabla antes de agregar nuevos datos
+
+    // Inicializar variables
+    var subtotal = 0;
+    var iva = 0;
+    var total = 0;
+
+    $.each(carrito, function (index, item) {
+        var fila = '<tr>' +
+            '<td style="text-align:center; font-weight:bold;">' + item.cantidad + '</td>' +
+            '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
+            '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
+            '</tr>';
+        tabla.append(fila);
+        $('#val_subtotal').val(item.subtotal);
+
+        // Se realiza la conversion a flotante para mostrar subtotal, iva y total a pagar
+        subtotal += parseFloat(item.subtotal);
+        iva += parseFloat(item.iva);
+        total += parseFloat(item.total);
+    });
+
+     
+
+    tabla_costos.find('th').empty();
+    
+
+    // Verificar si hay elementos en el carrito y mostrar el badge
+    if (carrito.length > 0) {
+        $('#alertCarrito').show();
+    } else {
+        $('#alertCarrito').hide();
+        var fila = '<tr>' +
+            '<td colspan="3" style="text-align:center; font-weight: bold;">' + 'No se encontraron pedidos dentro del carrito' + '</td>' +
+            '</tr>';
+        tabla.append(fila);
+    }
+    
+
+    // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
+    $('#th-subtotal2').text('$ ' + subtotal.toFixed(2));
+    $('#th-iva2').text('$ ' + iva.toFixed(2));
+    $('#th-total2').text('$ ' + total.toFixed(2));
 }
 
 
@@ -300,19 +380,4 @@ function calcularIva_y_Total() {
     }
 }
 
-
-/* function actualizarCarrito() {
-    $.ajax({
-        type: 'GET',
-        url: base_urlx + "Carrito",
-        success: function (data) {
-            $('#carrito').html(data);
-        }
-    });
-}
-
-$(document).ready(function () {
-    actualizarCarrito();
-});
- */
 

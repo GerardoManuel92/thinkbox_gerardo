@@ -43,6 +43,7 @@ $(document).ready(function () {
 });
 var totalCarrito = 0;
 var descripcionCarrito ='Productos a pagar: ';
+
 mostrarCarrito();
 function mostrarCarrito(){
     $.ajax({
