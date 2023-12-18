@@ -121,7 +121,7 @@ function realizarPago(){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: base_urlx+"Pago/pagarconClip",
+        url: base_urlx+"Pago/pagarconClip/",
         data:{ descripcion:descripcionCarrito, total: totalCarrito},
         cache: false,
         success: function(result)

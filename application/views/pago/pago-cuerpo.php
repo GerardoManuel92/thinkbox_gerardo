@@ -168,7 +168,7 @@
                                                         <div class="buttons">
                                                             <div class="pull-right">
                                                                 <div>
-                                                                    <a href="javascript:realizarPago()" title="Paga con Clip">
+                                                                    <a href="#" onclick="realizarPago()" title="Paga con Clip">
                                                                         <img src="https://prod-ses-email-templates-assets.s3.amazonaws.com/payment/pay-with-clip/button-logos/es/medios-de-pagos/svg/naranja_hover_con_sombra.svg" alt="Logo Paga con Clip" />
                                                                     </a>
                                                                 </div>

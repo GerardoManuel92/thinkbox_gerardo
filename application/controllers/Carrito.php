@@ -70,6 +70,7 @@ class Carrito extends CI_Controller
         $iduser = $this->session->userdata(IDUSERCOM);
 
         if ($iduser > 0) {
+
             $this->load->view('menu/head');
             $this->load->view('menu/menu-alterno');
             $this->load->view('carrito/carrito-cuerpo');
@@ -91,49 +92,62 @@ class Carrito extends CI_Controller
             'cantidad' => 1, // Puedes ajustar esto según tus necesidades
             'subtotal' => $this->input->post('subtotalx'),
             'iva' => $this->input->post('ivax'),
-            'total' => $this->input->post('totalx') // Precio por defecto para la primera vez
+            'total' => $this->input->post('totalx'),// Precio por defecto para la primera vez
+            'estatus' => 0
         );
 
-        $carrito_id = $this->Carrito_Model->agregar_servicio($data);
+        $table= 'carrito';
+
+        $carrito_id = $this->General_Model->altaERP($data, $table);
 
         if ($carrito_id) {
             echo json_encode(array('status' => 'success', 'message' => 'Producto agregado al carrito.'));
         } else {
             echo json_encode(array('status' => 'error', 'message' => 'Error al agregar el producto al carrito.'));
         }
-    }
-
-    public function vaciar_carrito()
-    {
-        $this->Carrito_Model->vaciar_carrito();
-        echo json_encode(array('status' => 'success', 'message' => 'Carrito vaciado.'));
-    }
-
-    public function consultar_carrito()
-    {
-        $carrito = $this->Carrito_Model->consultar_carrito();
-        echo json_encode($carrito);
-    }
+    } 
 
     public function obtener_datos_carrito_idusuario($usuario_id)
     {
         // Llamada a la función del modelo con el ID del usuario
-        $datosCarrito = $this->Carrito_Model->consultar_carrito_por_usuario($usuario_id);
+        $datosCarrito = $this->General_Model->consultar_carrito_por_usuario($usuario_id);
 
         header('Content-Type: application/json');
         echo json_encode($datosCarrito);
     }
 
-    public function actualizar_carrito(){
-
-        $data_post = $this->input->post();       
+    public function actualizar_carrito()
+    {
+        $data_post = $this->input->post();
 
         $datos = array(
-
             'cantidad' => $data_post['cantidadx'],
             'subtotal' => $data_post['subtotalx'],
             'iva' => $data_post['ivax'],
-            'total' => $data_post['totalx'],            
+            'total' => $data_post['totalx'],
+        );
+
+        $tabla = "carrito";
+        $condicion = array('usuario' => $data_post["iduserx"], 'id' => $data_post["idcartx"]);
+
+        // Manejo de errores
+        try {
+            $update = $this->General_Model->updateERP($datos, $tabla, $condicion);
+            echo json_encode($update);
+        } catch (Exception $e) {
+            // Manejo de errores
+            echo json_encode(array('error' => $e->getMessage()));
+        }
+    }
+
+
+    public function vaciarCarrito()
+    {
+        $data_post = $this->input->post();
+
+        $datos = array(
+
+            'estatus' => 1,  //Cambia estatus 1 que es elimininado                      
         );
         $tabla = "carrito";
         $condicion = array('usuario' => $data_post["iduserx"]);
@@ -144,7 +158,6 @@ class Carrito extends CI_Controller
 
         echo json_encode($update);
     }
-
 
 
     public function addCarrito()

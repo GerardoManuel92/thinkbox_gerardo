@@ -249,6 +249,20 @@ class General_Model extends CI_Model {
 
       }
 
+      /////*****OBTIENE INFORMACION DE LO QUE CONTIENE EL CARRITO POR MEDIO DEL ID DEL USUARIO LOGUEADO */
+      
+      public function consultar_carrito_por_usuario($usuario_id)
+      {
+          $this->db->select('a.id as id, a.cantidad as cantidad, a.idservicio as idservicio, b.descripcion as servicio, a.subtotal as subtotal, a.iva as iva, a.total as total');
+          $this->db->from('carrito a');
+          $this->db->join('servicios b', 'a.idservicio = b.id');
+          $this->db->where('a.usuario', $usuario_id);
+          $this->db->where('a.estatus', 0);
+  
+          $query = $this->db->get();
+          return $query->result();
+      }
+
       /////////////******** OBTENER INFORMACION POR UN QUERY TRADICIONAL
       public function crearTabla($query){
 

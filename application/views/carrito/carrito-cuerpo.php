@@ -6,7 +6,7 @@
                 width: 150px;
             }
 
-            #tabla_costos{
+            #tabla_costos {
                 margin-right: 400px;
             }
         }
@@ -43,7 +43,7 @@
                             </div>
 
                             <!-- Se ocultan campo donde se muestra el precio parcial del servicio  -->
-                            <input type="text" name="" id="val_subtotal" hidden>                            
+                            <input type="text" name="" id="val_subtotal" hidden>
 
                             <!-- Se muestra el subtotal, valor de iva o total por medio de celdas -->
                             <div class="col-sm-12 col-lg-6 order-lg-2 ml-auto">
@@ -89,8 +89,11 @@
                             </table>
                         </div> -->
                     </div>
-                    <div class="buttons">                       
-                        <div class="pull-right"><a href="<?php echo base_url('Pago'); ?>" onclick="actualizarCarrito();" class="btn btn-primary">Pagar</a></div>
+                    <div class="buttons">
+                        <div class="pull-right"><a href="<?php echo base_url('Pago'); ?>" onclick="actualizarCarrito();" class="btn btn-primary">Pagar</a>
+                            <a href="#" onclick="vaciarCarrito();" class="btn btn-danger">Vaciar carrito</a>
+                        </div>
+
                     </div>
                     <br>
                     <br>

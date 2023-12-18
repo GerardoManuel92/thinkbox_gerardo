@@ -108,7 +108,7 @@
                                     </a>
                                     <!--  Aqui se muestran las acciones que se realizarán dentro del perfil de usuario -->
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo base_url(); ?>Carrito/">Ver carrito<span class="badge badge-danger" id="alertCarrito" style="display:none; margin-left: 110px; background-color:#eb8b00;">1</span></a></li>
+                                        <li><a href="<?php echo base_url(); ?>Carrito/">Ver carrito<span class="badge badge-danger" id="alertCarrito" style="display:none; margin-left: 110px; background-color:#eb8b00;">!</span></a></li>
                                         <li><a href="<?php echo base_url('welcome/logout'); ?>" id="logoutLink">Cerrar sesión</a></li>
                                     </ul>
                                 </li>

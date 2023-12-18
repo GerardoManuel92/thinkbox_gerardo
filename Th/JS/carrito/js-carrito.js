@@ -31,89 +31,6 @@ function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
 
 }
 
-/* function validarInput(input) {
-    // Obtener el valor del input
-    var valorInput = input.value;
-
-    // Verificar si el valor no es un número o está vacío
-    if (isNaN(valorInput)) {
-        // Establecer el valor predeterminado como 1
-        input.value = 1;
-    }
-}
-mostrarCarrito();
-function mostrarCarrito(){
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: base_urlx+"Carrito/consultarCarrito",
-        cache: false,
-        success: function(result)
-        {
-            $("#carritoTable").html('');
-            if ( result != null ) {
-                productos = '<table class="table table-bordered"><thead><tr><td class="text-center">Imagen</td><td class="text-left">Nombre del Producto</td><td class="text-left">Modelo</td><td class="text-left fixed-width-column">Cantidad</td><td class="text-right">Precio Unitario</td><td class="text-right">Precio Total</td></tr></thead><tbody></tbody>';
-                total = 0;
-                $.each(result, function(i,item){
-                    total = total + (item.precio * item.cantidad);
-                    productos += '<tr><td class="text-center"><a href="'+base_urlx+'Producto/buscarProducto/'+item.id+'"><img width="70px" src="' + item.url + '" alt="' + item.nombre + '" title="' + item.nombre + '" class="img-thumbnail" /></a></td><td class="text-left"><a href="'+base_urlx+'Producto/buscarProducto/'+item.id+'">' + item.nombre + '</a><br /></td><td class="text-left">' + item.itemnum + '</td><td class="text-left fixed-width-column"><div class="input-group btn-block quantity"><input id="cantidad_' + item.id + '" type="text" name="quantity" value="' + item.cantidad + '" size="1" class="form-control" oninput="validarInput(this)" /><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="Update" class="btn btn-primary" onclick = "actualizarProducto(' + item.id+ ')" ><i class="fa fa-refresh"></i></button><button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick="eliminarProducto(' + item.id+ ')"><i class="fa fa-times-circle"></i></button></span></div></td><td class="text-right">$' + item.precio + '</td><td class="text-right">$' + (item.precio * item.cantidad) + '</td></tr>';
-                });
-                productos += '</tbody></table>';
-                $("#carritoTable").html(productos);
-                $("#subtotal").html('$' + ((total) - (total * (16/100))).toLocaleString());
-                $("#IVA").html('$' + (total * (16/100)).toLocaleString());
-                $("#total").html('$'+total.toLocaleString());
-                
-            }else{
-                $("#carritoTable").html('<h2>El carrito esta vacio</h2>');
-            }
-            
-        }
-    }).fail( function( jqXHR, textStatus, errorThrown ) {
-        detectarErrorJquery(jqXHR, textStatus, errorThrown);
-    });
-}
-
-function eliminarProducto(idProducto) {
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: base_urlx+"Carrito/deleteCarrito",
-        data:{ idProductox:idProducto},
-        cache: false,
-        success: function(result)
-        {
-            mostrarCarrito();
-            consultarCarrito();
-        }
-    }).fail( function( jqXHR, textStatus, errorThrown ) {
-        detectarErrorJquery(jqXHR, textStatus, errorThrown);
-    });
-}
-
-function actualizarProducto(idProducto){
-    var cantidad = document.getElementById("cantidad_"+idProducto).value;
-    // Comprobar si el valor está vacío
-    if (cantidad.trim() === "") {
-        alert("Ingrese una cantidad valida");
-    } else {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: base_urlx+"Carrito/actualizarCantidadCarrito",
-            data:{ idProductox:idProducto, cantidadx: cantidad},
-            cache: false,
-            success: function(result)
-            {
-                mostrarCarrito();
-                consultarCarrito();
-            }
-        }).fail( function( jqXHR, textStatus, errorThrown ) {
-            detectarErrorJquery(jqXHR, textStatus, errorThrown);
-        });
-    }
-} */
-
 function agregarAlCarrito() {
 
     $.ajax({
@@ -127,8 +44,8 @@ function agregarAlCarrito() {
             totalx: ($('#precio1').text() * 1.16)
         },
         success: function () {
-            alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
-            location.reload();
+            //alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
+            window.location.href = base_urlx + "Carrito";
             obtenerDatosCarrito();
         }
     });
@@ -155,13 +72,6 @@ function agregarAlCarrito2() {
     });
 
 }
-
-
-
-/* $(document).ready(function () {
-    actualizarCarrito();
-}); */
-
 
 function vaciarCarrito() {
     $.ajax({
@@ -205,18 +115,19 @@ function mostrarDatosCarrito(carrito) {
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
             '<td> <input type="number" class="form-control" value="' + item.cantidad + 
-                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"> </td>' +
+                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"><input type="number" id="id_cart" class="form-control" value="' + item.id + 
+                    '" hidden> </td>' +
             '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
             '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
             '</tr>';
         tabla.append(fila);
         $('#val_subtotal').val(item.subtotal);
 
-        // Se realiza la conversion a flotante para mostrar subtotal, iva y total a pagar
-        subtotal += parseFloat(item.subtotal);
-        iva += parseFloat(item.iva);
-        total += parseFloat(item.total);
-        /* actualizarCarrito(item.cantidad, item.subtotal, item.iva, item.total); */
+         // Se realiza la conversión a flotante para mostrar subtotal, iva y total a pagar
+         subtotal += parseFloat(item.subtotal);
+         iva += parseFloat(item.iva);
+         total += parseFloat(item.total);
+        
     });
 
      
@@ -244,25 +155,42 @@ function mostrarDatosCarrito(carrito) {
     
 }
 
-function actualizarCarrito(cantidad, subtotal, iva, total) {
+function actualizarCarrito() {
 
     var idUsuario = $('#idUser').text();
+    var idCarrito = $('#id_cart').val();
+    var cantidad = $('#cant_serv').val();
+
+    var subt = $('#th-subtotal').text();
+    var iva = $('#th-iva').text();  
+    var total = $('#th-total').text(); 
+
+    var subtotal = parseFloat(subt.replace(/\$|\s/g, ''));
+    var ivaa = calcularIva(subtotal);
+    var tottal = parseFloat(total.replace(/\$|\s/g, ''));
+   
 
     $.ajax({
         type: 'POST',
         url: base_urlx + "Carrito/actualizar_carrito",
         data: {            
             iduserx : idUsuario,
+            idcartx : idCarrito,
             cantidadx : cantidad,
             subtotalx : subtotal,
-            ivax : iva,
-            totalx : total
+            ivax : ivaa,
+            totalx : tottal
         },
         success: function () {
-            alert('Se ha actualizado el carrito, serás dirigido a la sección Pagar');  
-            alert($('#th-subtotal').text());       
+            alert('Se ha actualizado el carrito, serás dirigido a la sección Pagar');                    
         }
     });
+}
+
+function calcularIva(subtotal) {
+    // Realiza el cálculo del IVA aquí, según tu lógica de negocios
+    // En este ejemplo, se asume que el IVA es el 16% del subtotal
+    return subtotal * 0.16;
 }
 
 function mostrarDatosCarritoResumen(carrito) {
@@ -313,12 +241,39 @@ function mostrarDatosCarritoResumen(carrito) {
     $('#th-total2').text('$ ' + total.toFixed(2));
 }
 
-
 // Llamar a la función para obtener y mostrar los datos del carrito al cargar la página.
 $(document).ready(function () {
     obtenerDatosCarrito();
 });
 
+function vaciarCarrito() {
+    // Preguntar al usuario si realmente desea vaciar el carrito
+    var confirmacion = confirm('¿Estás seguro de que quieres vaciar el carrito?');
+
+    // Si el usuario hace clic en "Aceptar", proceder con la acción
+    if (confirmacion) {
+        var idUsuario = $('#idUser').text();
+
+        $.ajax({
+            type: 'POST',
+            url: base_urlx + 'Carrito/vaciarCarrito',
+            data: {
+                iduserx: idUsuario,
+            },
+            success: function () {
+                alert('El carrito ya está vacío');
+                location.reload();
+            },
+            error: function (error) {
+                console.error('Error al vaciar el carrito:', error);
+            }
+        });
+    } else {
+        // Si el usuario hace clic en "Cancelar", no hacer nada
+        // O se muestra un mensaje de cancelación
+        alert('Operación cancelada');
+    }
+}
 
 function validarCantidad(input) {
     if (input.value <= 0) {
@@ -379,5 +334,3 @@ function calcularIva_y_Total() {
         alert("El valor de subtotal no es un número válido. ");
     }
 }
-
-

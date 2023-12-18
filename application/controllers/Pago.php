@@ -75,6 +75,7 @@ class Pago extends CI_Controller
             $this->load->view('pago/pago-cuerpo');
             $this->load->view('footer/footer');
             $this->load->view('js/js-carrito');
+            $this->load->view('js/js-pago');
             $this->load->view('js/js');
         } else {
 
