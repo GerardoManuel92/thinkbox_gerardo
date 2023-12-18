@@ -87,6 +87,8 @@ class Carrito extends CI_Controller
         //$this->load->model('Carrito_Model'); // Carga el modelo Carrito_Model
         // Recibe datos del producto por AJAX
         $data = array(
+            'fecha' => date("Y-m-d"),
+            'hora' => date("H:i:s"),
             'idservicio' => $this->input->post('idserviciox'),
             'usuario' => $this->input->post('iduserx'),
             'cantidad' => 1, // Puedes ajustar esto según tus necesidades
@@ -121,6 +123,8 @@ class Carrito extends CI_Controller
         $data_post = $this->input->post();
 
         $datos = array(
+            'fecha' => date("Y-m-d"),
+            'hora' => date("H:i:s"),
             'cantidad' => $data_post['cantidadx'],
             'subtotal' => $data_post['subtotalx'],
             'iva' => $data_post['ivax'],
