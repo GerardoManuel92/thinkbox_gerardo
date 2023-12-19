@@ -9,6 +9,16 @@
             #tabla_costos {
                 margin-right: 400px;
             }
+
+            @media (min-width: 767px) {
+                td{
+                    font-size: 12px;
+                }
+
+                .form-control{
+                    width: 100%;
+                };
+            }
         }
     </style>
 
@@ -26,7 +36,7 @@
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-8 col-lg-12">
                             <div class="col-sm-4 col-sm-offset-8 col-lg-12">
-                                <table class="table table-bordered" id="carritoTable">
+                                <table class="table table-dark" id="carritoTable">
                                     <thead style="background-color: #666666; color:white;">
                                         <tr>
                                             <th>Cantidad</th>

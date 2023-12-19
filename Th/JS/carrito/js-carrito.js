@@ -115,7 +115,7 @@ function mostrarDatosCarrito(carrito) {
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
             '<td> <input type="number" class="form-control" value="' + item.cantidad + 
-                    '" style="text-align:center; font-weight:bold; width:30%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"><input type="number" id="id_cart" class="form-control" value="' + item.id + 
+                    '" style="text-align:center; font-weight:bold; width:50%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"><input type="number" id="id_cart" class="form-control" value="' + item.id + 
                     '" hidden> </td>' +
             '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
             '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
