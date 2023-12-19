@@ -164,7 +164,7 @@
                                                         <br>
                                                         <label class="control-label" for="confirm_agree">
                                                             <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-                                                            <span>He leído y acepto los <a class="agree" href="#"><b>Términos &amp; Condiciones</b></a></span> </label>
+                                                            <span>He leído y acepto los <a class="agree" href="https://www.clip.mx/terminos" target="_blank"><b>Términos &amp; Condiciones</b></a></span> </label>
                                                         <div class="buttons">
                                                             <div class="pull-right">
                                                                 <div>

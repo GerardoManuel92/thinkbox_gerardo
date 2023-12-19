@@ -33,43 +33,58 @@ function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
 
 function agregarAlCarrito() {
 
-    $.ajax({
-        type: 'POST',
-        url: base_urlx + "Carrito/agregar_servicio",
-        data: {
-            idserviciox: $('#id1').text(),
-            iduserx: $('#idUser').text(),
-            subtotalx: $('#precio1').text(),
-            ivax: ($('#precio1').text() * 0.16),
-            totalx: ($('#precio1').text() * 1.16)
-        },
-        success: function () {
-            //alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
-            window.location.href = base_urlx + "Carrito";
-            obtenerDatosCarrito();
-        }
-    });
+    var idUsuario = $('#idUser').text();
+
+    if (idUsuario > 0) {
+        $.ajax({
+            type: 'POST',
+            url: base_urlx + "Carrito/agregar_servicio",
+            data: {
+                idserviciox: $('#id1').text(),
+                iduserx: $('#idUser').text(),
+                subtotalx: $('#precio1').text(),
+                ivax: ($('#precio1').text() * 0.16),
+                totalx: ($('#precio1').text() * 1.16)
+            },
+            success: function () {
+                //alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
+                window.location.href = base_urlx + "Carrito";
+                obtenerDatosCarrito();
+            }
+        });
+    } else {
+        //alert('Primero debes iniciar sesión, serás redireccionado al Login');
+        window.location.href = base_urlx + "Login";
+    }
 
 }
 
 function agregarAlCarrito2() {
 
-    $.ajax({
-        type: 'POST',
-        url: base_urlx + "Carrito/agregar_servicio",
-        data: {
-            idserviciox: $('#id2').text(),
-            iduserx: $('#idUser').text(),
-            subtotalx: $('#precio2').text(),
-            ivax: ($('#precio2').text() * (16/100)),
-            totalx: ($('#precio2').text() * 1.16)
-        },
-        success: function () {
-            alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
-            location.reload();
-            obtenerDatosCarrito();
-        }
-    });
+    var idUsuario = $('#idUser').text();
+
+    if (idUsuario > 0) {
+
+        $.ajax({
+            type: 'POST',
+            url: base_urlx + "Carrito/agregar_servicio",
+            data: {
+                idserviciox: $('#id2').text(),
+                iduserx: $('#idUser').text(),
+                subtotalx: $('#precio2').text(),
+                ivax: ($('#precio2').text() * (16 / 100)),
+                totalx: ($('#precio2').text() * 1.16)
+            },
+            success: function () {
+                alert('Servicio agregado al carrito correctamente, ve a la sección de Ver carrito');
+                location.reload();
+                obtenerDatosCarrito();
+            }
+        });
+    } else {
+        //alert('Debes iniciar sesión, serás redireccionado al Login');
+        window.location.href = base_urlx + "Login";
+    }
 
 }
 
@@ -114,26 +129,26 @@ function mostrarDatosCarrito(carrito) {
 
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
-            '<td> <input type="number" class="form-control" value="' + item.cantidad + 
-                    '" style="text-align:center; font-weight:bold; width:50%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this);"><input type="number" id="id_cart" class="form-control" value="' + item.id + 
-                    '" hidden> </td>' +
+            '<td> <input type="number" class="form-control" value="' + item.cantidad +
+            '" style="text-align:center; font-weight:bold; width:50%" min="1" id="cant_serv" onblur="validarCantidad(this);" onchange="validarCantidad(this); comparaCantidad();"><input type="number" id="id_cart" class="form-control" value="' + item.id +
+            '" hidden> </td>' +
             '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
             '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
             '</tr>';
         tabla.append(fila);
-        $('#val_subtotal').val(item.subtotal);
+        $('#val_subtotal').val(item.precio);
 
-         // Se realiza la conversión a flotante para mostrar subtotal, iva y total a pagar
-         subtotal += parseFloat(item.subtotal);
-         iva += parseFloat(item.iva);
-         total += parseFloat(item.total);
-        
+        // Se realiza la conversión a flotante para mostrar subtotal, iva y total a pagar
+        subtotal += parseFloat(item.subtotal);
+        iva += parseFloat(item.iva);
+        total += parseFloat(item.total);
+
     });
 
-     
+
 
     tabla_costos.find('th').empty();
-    
+
 
     // Verificar si hay elementos en el carrito y mostrar el badge
     if (carrito.length > 0) {
@@ -145,14 +160,14 @@ function mostrarDatosCarrito(carrito) {
             '</tr>';
         tabla.append(fila);
     }
-    
+
 
     // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
     $('#th-subtotal').text('$ ' + subtotal.toFixed(2));
     $('#th-iva').text('$ ' + iva.toFixed(2));
     $('#th-total').text('$ ' + total.toFixed(2));
 
-    
+
 }
 
 function actualizarCarrito() {
@@ -162,27 +177,27 @@ function actualizarCarrito() {
     var cantidad = $('#cant_serv').val();
 
     var subt = $('#th-subtotal').text();
-    var iva = $('#th-iva').text();  
-    var total = $('#th-total').text(); 
+    var iva = $('#th-iva').text();
+    var total = $('#th-total').text();
 
     var subtotal = parseFloat(subt.replace(/\$|\s/g, ''));
     var ivaa = calcularIva(subtotal);
     var tottal = parseFloat(total.replace(/\$|\s/g, ''));
-   
+
 
     $.ajax({
         type: 'POST',
         url: base_urlx + "Carrito/actualizar_carrito",
-        data: {            
-            iduserx : idUsuario,
-            idcartx : idCarrito,
-            cantidadx : cantidad,
-            subtotalx : subtotal,
-            ivax : ivaa,
-            totalx : tottal
+        data: {
+            iduserx: idUsuario,
+            idcartx: idCarrito,
+            cantidadx: cantidad,
+            subtotalx: subtotal,
+            ivax: ivaa,
+            totalx: tottal
         },
         success: function () {
-            alert('Se ha actualizado el carrito, serás dirigido a la sección Pagar');                    
+            alert('El carrito se ha actualizado');
         }
     });
 }
@@ -210,7 +225,7 @@ function mostrarDatosCarritoResumen(carrito) {
             '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
             '</tr>';
         tabla.append(fila);
-        $('#val_subtotal').val(item.subtotal);
+        $('#val_subtotal').val(item.precio);
 
         // Se realiza la conversion a flotante para mostrar subtotal, iva y total a pagar
         subtotal += parseFloat(item.subtotal);
@@ -218,10 +233,10 @@ function mostrarDatosCarritoResumen(carrito) {
         total += parseFloat(item.total);
     });
 
-     
+
 
     tabla_costos.find('th').empty();
-    
+
 
     // Verificar si hay elementos en el carrito y mostrar el badge
     if (carrito.length > 0) {
@@ -233,7 +248,7 @@ function mostrarDatosCarritoResumen(carrito) {
             '</tr>';
         tabla.append(fila);
     }
-    
+
 
     // Actualizar los elementos con los IDs th-subtotal, th-iva y th-total
     $('#th-subtotal2').text('$ ' + subtotal.toFixed(2));
@@ -279,7 +294,7 @@ function validarCantidad(input) {
     if (input.value <= 0) {
         alert('La cantidad que ingresaste no es válida, debe ser mínimo 1');
         input.value = 1;
-    }else {
+    } else {
         calcularSubtotal();
     }
 }
@@ -306,7 +321,7 @@ function calcularSubtotal() {
 
     // Establece el valor en el campo val_nvoresultado
     $('#th-subtotal').text('$ ' + subt.toFixed(2));
-    calcularIva_y_Total();    
+    calcularIva_y_Total();
 }
 
 function calcularIva_y_Total() {
@@ -319,16 +334,16 @@ function calcularIva_y_Total() {
     // Verifica si el valor de subtotal es un número válido
     if (!isNaN(subtotal)) {
         // Realiza los cálculos solo si subtotal es un número válido
-        var iva = parseFloat(subtotal * (16/100));
+        var iva = parseFloat(subtotal * (16 / 100));
         var total = parseFloat(subtotal + iva);
 
         // Muestra el valor de iva
-        
+
 
         // Actualiza el texto de #th-iva y #th-total con los valores calculados
         $('#th-iva').text('$ ' + iva.toFixed(2));
         $('#th-total').text('$ ' + total.toFixed(2));
-        
+
     } else {
         // Muestra un mensaje de error si el subtotal no es un número válido
         alert("El valor de subtotal no es un número válido. ");
