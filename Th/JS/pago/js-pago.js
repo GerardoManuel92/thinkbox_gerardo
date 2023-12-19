@@ -1,34 +1,34 @@
-function detectarErrorJquery(jqXHR, textStatus, errorThrown){
+function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
     if (jqXHR.status === 0) {
-  
+
         alert('Error en conexión a internet: Verifique su conexión.');
-  
+
     } else if (jqXHR.status == 404) {
-  
+
         alert('Pagina no encontrada[404]');
-  
+
     } else if (jqXHR.status == 500) {
-  
+
         alert('Error en la respuesta del servidor [500].');
-  
+
     } else if (textStatus === 'parsererror') {
-  
+
         alert('Error, en la crecion del JSON, parse failed');
-  
+
     } else if (textStatus === 'timeout') {
-  
+
         alert('Tiempo de espera excedido.');
-  
+
     } else if (textStatus === 'abort') {
-  
+
         alert('La peticion AJax ha sido abortada');
-  
+
     } else {
-  
+
         alert('El error no se puedo identificar: ' + jqXHR.responseText);
-  
+
     }
-  
+
 }
 
 $(document).ready(function () {
@@ -42,19 +42,18 @@ $(document).ready(function () {
     });
 });
 var totalCarrito = 0;
-var descripcionCarrito ='Productos a pagar: ';
+var descripcionCarrito = 'Productos a pagar: ';
 
 mostrarCarrito();
-function mostrarCarrito(){
+function mostrarCarrito() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_urlx+"Carrito/consultarCarrito",
+        url: base_urlx + "Carrito/consultarCarrito",
         cache: false,
-        success: function(result)
-        {
+        success: function (result) {
             $("#carritoTable").html('');
-            if ( result != null ) {
+            if (result != null) {
                 productos = `<table class="table table-bordered">
                 <thead>
                   <tr>
@@ -67,8 +66,8 @@ function mostrarCarrito(){
                 </thead>
                 <tbody>`;
                 total = 0;
-                $.each(result, function(i,item){
-                    descripcionCarrito += item.nombre + ' x '+item.cantidad+', ';
+                $.each(result, function (i, item) {
+                    descripcionCarrito += item.nombre + ' x ' + item.cantidad + ', ';
                     total = total + (item.precio * item.cantidad);
                     productos += `<tr>
                     <td class="text-center"><a href="${base_urlx}Producto/buscarProducto/${item.id}"><img width="60px" src="${item.url}" alt="${item.nombre}" title="${item.nombre}" class="img-thumbnail"></a></td>
@@ -82,7 +81,7 @@ function mostrarCarrito(){
                     <tfoot>
                     <tr>
                         <td class="text-right" colspan="4"><strong>Subtotal:</strong></td>
-                        <td class="text-right">$${((total) - (total * (16/100))).toLocaleString()}</td>
+                        <td class="text-right">$${((total) - (total * (16 / 100))).toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td class="text-right" colspan="4"><strong>Cobro de envio:</strong></td>
@@ -90,7 +89,7 @@ function mostrarCarrito(){
                     </tr>
                     <tr>
                         <td class="text-right" colspan="4"><strong>IVA (16%):</strong></td>
-                        <td class="text-right">$${(total * (16/100)).toLocaleString()}</td>
+                        <td class="text-right">$${(total * (16 / 100)).toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td class="text-right" colspan="4"><strong>Total:</strong></td>
@@ -100,16 +99,16 @@ function mostrarCarrito(){
                 </table>`;
                 totalCarrito = total.toFixed(2);
                 $("#carritoTable").html(productos);
-            }else{
+            } else {
                 $("#carritoTable").html('<h2>El carrito esta vacio</h2>');
             }
-            
+
         }
-    }).fail( function( jqXHR, textStatus, errorThrown ) {
+    }).fail(function (jqXHR, textStatus, errorThrown) {
         detectarErrorJquery(jqXHR, textStatus, errorThrown);
     });
 }
-function realizarPago(){
+function realizarPago() {
     // Eliminar el último espacio de más
     descripcionCarrito = descripcionCarrito.trim();
 
@@ -117,24 +116,32 @@ function realizarPago(){
     if (descripcionCarrito.endsWith(',')) {
         descripcionCarrito = descripcionCarrito.slice(0, -1);
     }
-    // Acción para Clip
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: base_urlx+"Pago/pagarconClip/",
-        data:{ descripcion:descripcionCarrito, total: totalCarrito},
-        cache: false,
-        success: function(result)
-        {
-            if (result.error) {
-                // Mostrar una alerta si hay un error
-                alert(result.error);
-        } else {
-            idPayment = result.payment_request_id;
-            window.location.href = (result.payment_request_url);
-        }
-        }
-    }).fail( function( jqXHR, textStatus, errorThrown ) {
-        detectarErrorJquery(jqXHR, textStatus, errorThrown);
-    });
+
+    var isChecked = $('#confirm_agree').prop('checked');
+
+    // Hacer algo basado en el estado del checkbox
+    if (isChecked) {
+        // Acción para Clip
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: base_urlx + "Pago/pagarconClip/",
+            data: { descripcion: descripcionCarrito, total: totalCarrito },
+            cache: false,
+            success: function (result) {
+                if (result.error) {
+                    // Mostrar una alerta si hay un error
+                    alert(result.error);
+                } else {
+                    idPayment = result.payment_request_id;
+                    window.location.href = (result.payment_request_url);
+                }
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            detectarErrorJquery(jqXHR, textStatus, errorThrown);
+        });
+    } else {
+        alert('Debes aceptar los términos y condiciones.');
+    }
+
 }

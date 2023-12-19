@@ -73,7 +73,7 @@ function agregarAlCarrito2() {
 
 }
 
-function vaciarCarrito() {
+/* function vaciarCarrito() {
     $.ajax({
         type: 'POST',
         url: base_urlx + "Carrito/vaciar_carrito",
@@ -81,7 +81,7 @@ function vaciarCarrito() {
             obtenerDatosCarrito();
         }
     });
-}
+} */
 
 // Supongamos que tienes una función para obtener los datos del carrito mediante AJAX.
 function obtenerDatosCarrito() {

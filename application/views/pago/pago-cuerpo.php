@@ -40,7 +40,7 @@
                                 <h2 class="title" style="text-align: center;">Pagar</h2>
                                 <br>
                                 <h4 class="title" style="text-align: center;">Resúmen del pedido</h4>
-                                <div class="so-onepagecheckout row"> <!-- <div class="col-left col-sm-3"> -->
+                                <div class="table-responsive form-group"> <!-- <div class="col-left col-sm-3"> -->
                                     <!-- <div class="panel panel-default">
                                     <div class="panel-heading">
                                     <h4 class="panel-title"><i class="fa fa-book"></i>Tu dirección</h4>
