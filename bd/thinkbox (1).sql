@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-12-2023 a las 21:33:05
+-- Tiempo de generación: 20-12-2023 a las 21:01:43
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -45,7 +45,48 @@ CREATE TABLE `carrito` (
 --
 
 INSERT INTO `carrito` (`id`, `fecha`, `hora`, `idservicio`, `usuario`, `cantidad`, `subtotal`, `iva`, `total`, `estatus`) VALUES
-(1, '2023-12-18', '21:31:15', 1, 2, 1, '2500.00', '400.00', '2900.00', 0);
+(1, '2023-12-20', '19:58:11', 1, 2, 1, '2500.00', '400.00', '2900.00', 0),
+(2, '2023-12-20', '19:16:33', 2, 1, 1, '3500.00', '560.00', '4060.00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `compras`
+--
+
+CREATE TABLE `compras` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  `servicio` int(11) NOT NULL,
+  `total_pago` decimal(15,2) NOT NULL,
+  `payment_request_id` varchar(255) NOT NULL,
+  `estatus` int(11) NOT NULL COMMENT 'Guarda el estatus de id de estatus_pago'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus_pago`
+--
+
+CREATE TABLE `estatus_pago` (
+  `id` int(11) NOT NULL,
+  `estatus` varchar(30) NOT NULL,
+  `descripcion` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estatus_pago`
+--
+
+INSERT INTO `estatus_pago` (`id`, `estatus`, `descripcion`) VALUES
+(1, 'CHECKOUT_CREATED', 'El link de pago fue creado exitosamente'),
+(2, 'CHECKOUT_PENDING', 'El link de pago esta activo y pendiente de ser completado'),
+(3, 'CHECKOUT_CANCELLED', 'El link de pago fue cancelado por exceso de intentos (máximo 5)'),
+(4, 'CHECKOUT_EXPIRED', 'El link de pago expiro. El link de pago expira despues de 1 hora'),
+(5, 'CHECKOUT_COMPLETED', 'El link de pago se liquido');
 
 -- --------------------------------------------------------
 
@@ -105,6 +146,18 @@ ALTER TABLE `carrito`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estatus_pago`
+--
+ALTER TABLE `estatus_pago`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `servicios`
 --
 ALTER TABLE `servicios`
@@ -124,7 +177,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `estatus_pago`
+--
+ALTER TABLE `estatus_pago`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
