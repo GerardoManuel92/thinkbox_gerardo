@@ -10,7 +10,6 @@ class Pago extends CI_Controller
         $this->load->library('session');
 
         $this->load->model('General_Model');
-        $this->load->model('Carrito_Model');
 
         function changeString($string)
         {
@@ -84,9 +83,9 @@ class Pago extends CI_Controller
     }
     public function pagarconClip()
     {
-        $this->load->model('General_Model');
         $data_post = $this->input->post();
-        $amount = (float) $_POST['total'];
+        $amount = (float) $data_post['total'];
+
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://api-gw.payclip.com/checkout",
@@ -117,6 +116,7 @@ class Pago extends CI_Controller
         $err = curl_error($curl);
 
         curl_close($curl);
+
         if ($err) {
             $resultado = ["error" => "cURL Error #" . $err];
         } else {
@@ -125,5 +125,30 @@ class Pago extends CI_Controller
 
         header('Content-Type: application/json');
         echo json_encode($resultado);
+    }
+
+    public function altaCompra()
+    {
+        //$this->load->model('Carrito_Model'); // Carga el modelo Carrito_Model
+        // Recibe datos del producto por AJAX
+        $data = array(
+            'fecha' => date("Y-m-d"),
+            'hora' => date("H:i:s"),
+            'idusuario' => $this->input->post('iduserx'),
+            'servicio' => $this->input->post('idserviciox'),                        
+            'total_pago' => $this->input->post('totalx'),
+            'payment_request_id	' => $this->input->post('url_pagox'),            
+            'estatus' => 1
+        );
+
+        $table = 'compras';
+
+        $compra_id = $this->General_Model->altaERP($data, $table);
+
+        if ($compra_id) {
+            echo json_encode(array('status' => 'success', 'message' => 'Registro guardado.'));
+        } else {
+            echo json_encode(array('status' => 'error', 'message' => 'Error al guardar datos.'));
+        }
     }
 }

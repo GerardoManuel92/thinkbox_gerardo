@@ -163,12 +163,12 @@
                                                         <!-- <textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea> -->
                                                         <br>
                                                         <label class="control-label" for="confirm_agree">
-                                                            <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+                                                            <input type="checkbox"  value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
                                                             <span>He leído y acepto los <a class="agree" href="https://www.clip.mx/terminos" target="_blank"><b>Términos &amp; Condiciones</b></a></span> </label>
                                                         <div class="buttons">
                                                             <div class="pull-right">
                                                                 <div>
-                                                                    <a href="#" onclick="realizarPago()" title="Paga con Clip">
+                                                                    <a href="<?php echo base_url('Pago')?>" onclick="realizarPago();" title="Paga con Clip">
                                                                         <img src="https://prod-ses-email-templates-assets.s3.amazonaws.com/payment/pay-with-clip/button-logos/es/medios-de-pagos/svg/naranja_hover_con_sombra.svg" alt="Logo Paga con Clip" />
                                                                     </a>
                                                                 </div>

@@ -61,7 +61,7 @@
 <script src="<?php echo base_url();?>Th/JS/carrito/js-carrito.js"></script>
 <script src="<?php echo base_url();?>Th/JS/login/login.js"></script>
 <script src="<?php echo base_url();?>Th/JS/logout/logout.js"></script>
-<script src="<?php echo base_url();?>Th/JS/addtocart.js"></script>
+
 
 </body>
 </html>

@@ -1,3 +1,6 @@
+// Variable que obtiene la cantidad dentro del input en la tabla
+var valorInicial = $('#cant_serv').val();
+
 function detectarErrorJquery(jqXHR, textStatus, errorThrown) {
     if (jqXHR.status === 0) {
 
@@ -87,16 +90,6 @@ function agregarAlCarrito2() {
     }
 
 }
-
-/* function vaciarCarrito() {
-    $.ajax({
-        type: 'POST',
-        url: base_urlx + "Carrito/vaciar_carrito",
-        success: function () {
-            obtenerDatosCarrito();
-        }
-    });
-} */
 
 // Supongamos que tienes una función para obtener los datos del carrito mediante AJAX.
 function obtenerDatosCarrito() {
@@ -221,11 +214,12 @@ function mostrarDatosCarritoResumen(carrito) {
     $.each(carrito, function (index, item) {
         var fila = '<tr>' +
             '<td style="text-align:center; font-weight:bold;">' + item.cantidad + '</td>' +
-            '<td style="text-align:center; font-weight:bold;">' + 'Pagina web ' + item.servicio + '</td>' +
+            '<td style="text-align:center; font-weight:bold;"> <input type="number" class="form-control" id="id_servicio" value="' + item.idservicio + '" hidden> Pagina web ' + item.servicio + '</td>' +
             '<td style="text-align:center; font-weight:bold;" id="subtotal">' + '$ ' + item.subtotal + '</td>' +
             '</tr>';
         tabla.append(fila);
         $('#val_subtotal').val(item.precio);
+
 
         // Se realiza la conversion a flotante para mostrar subtotal, iva y total a pagar
         subtotal += parseFloat(item.subtotal);
@@ -260,6 +254,18 @@ function mostrarDatosCarritoResumen(carrito) {
 $(document).ready(function () {
     obtenerDatosCarrito();
 });
+
+function comparaCantidad() {
+    // Obtén el valor actual del input
+    var valorActual = $('#cant_serv').val();
+
+    // Compara si la cantidad nueva es diferente
+    if (valorActual != valorInicial) {
+        $('#botonPagar').text('Actualizar y Pagar');
+    } else {
+        $('#botonPagar').text('Pagar');
+    }
+}
 
 function vaciarCarrito() {
     // Preguntar al usuario si realmente desea vaciar el carrito
